@@ -65,10 +65,10 @@ public class Form_BanHang extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         txaGhiChu = new javax.swing.JTextArea();
-        txtTienKhachDua = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         rdoTienMat = new javax.swing.JRadioButton();
         rdoChuyenKhoan = new javax.swing.JRadioButton();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         setEnabled(false);
 
@@ -365,6 +365,8 @@ public class Form_BanHang extends javax.swing.JPanel {
         buttonGroup1.add(rdoChuyenKhoan);
         rdoChuyenKhoan.setText("Chuyển khoản");
 
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -389,11 +391,11 @@ public class Form_BanHang extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane5)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTienKhachDua))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel14)
                             .addComponent(jLabel16)
                             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -452,7 +454,7 @@ public class Form_BanHang extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(txtTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -538,6 +540,7 @@ public class Form_BanHang extends javax.swing.JPanel {
     private javax.swing.JButton btnXoaSPHDCT;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
@@ -569,7 +572,6 @@ public class Form_BanHang extends javax.swing.JPanel {
     private javax.swing.JTable tblHoaDonChiTiet;
     private javax.swing.JTable tblSanPham;
     private javax.swing.JTextArea txaGhiChu;
-    private javax.swing.JTextField txtTienKhachDua;
     private javax.swing.JTextField txtTimKiemSanPham;
     private javax.swing.JTextField txtVoucher;
     // End of variables declaration//GEN-END:variables
