@@ -76,13 +76,13 @@ public class Form_BanHang extends javax.swing.JPanel {
 
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã Hóa Đơn", "Nhân Viên ", "Khách Hàng", "Ngày Tạo", "Trạng Thái"
+                "STT", "Mã Hóa Đơn", "Nhân Viên ", "Ngày Tạo", "Trạng Thái"
             }
         ));
         tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
