@@ -5,24 +5,6 @@
  */
 package com.raven.form;
 
-import com.raven.Service.HoaDonRepository;
-import com.raven.Service.InterfaceHoaDonRepo;
-import com.raven.Service.InterfaceSanPhamRepo;
-import com.raven.Service.SanPhamRepository;
-import com.raven.model.HDCTTable;
-import com.raven.Model2.HoaDonTable;
-import com.raven.Model2.SanPham;
-import com.raven.Model2.khachHang;
-import com.raven.Service.khachHang_Service;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import javax.swing.JOptionPane;
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author RAVEN
@@ -32,23 +14,8 @@ public class Form_BanHang extends javax.swing.JPanel {
     /**
      * Creates new form Form_1
      */
-    InterfaceSanPhamRepo serviceSP = new SanPhamRepository();
-    InterfaceHoaDonRepo serviceHD = new HoaDonRepository();
-    DefaultTableModel model = new DefaultTableModel();
-    int i = -1;
-    String tenNV, username;
-    private khachHang_Service khservice = new khachHang_Service();
-
     public Form_BanHang() {
         initComponents();
-//        this.tenNV = tenNV;
-//        this.username = username;
-//        this.setLocationRelativeTo(null);
-//        lblTenKhachHang.setText("Khách Lẻ");
-//        loadKH(khservice.getAll_KH());
-        this.loadTableSP(serviceSP.timKiemSP(txtTimKiemSanPham.getText()));
-        this.loadTableHD(serviceHD.getAllHDChuaHT());
-        lblTenNhanVien.setText(serviceHD.getTenNhanVien(1));
     }
 
     /**
@@ -541,47 +508,43 @@ public class Form_BanHang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
-        this.showHDCT();
-        this.getIDHD();
+
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
-        this.addHD();
+
     }//GEN-LAST:event_btnTaoHDActionPerformed
 
     private void btnDeleteHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteHDActionPerformed
-        this.huyHD();
+
     }//GEN-LAST:event_btnDeleteHDActionPerformed
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
-        this.themSP_HDCT();
+
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
     private void txtTimKiemSanPhamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemSanPhamKeyReleased
-        this.searchSP();
+
     }//GEN-LAST:event_txtTimKiemSanPhamKeyReleased
 
     private void tblHoaDonChiTietMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChiTietMouseClicked
-        this.IDCTSP_tableHDCT();
-        int index = tblHoaDonChiTiet.getSelectedRow();
-        HDCTTable hdct = serviceHD.getAllCTHD(getIDHD()).get(index);
+
     }//GEN-LAST:event_tblHoaDonChiTietMouseClicked
 
     private void btnCapNhatSLHDCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatSLHDCTActionPerformed
-        this.updateSLHDCT();
+
     }//GEN-LAST:event_btnCapNhatSLHDCTActionPerformed
 
     private void btnXoaSPHDCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPHDCTActionPerformed
-        this.xoa1SPHDCT();
+
     }//GEN-LAST:event_btnXoaSPHDCTActionPerformed
 
     private void btnKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangActionPerformed
-        KhachHangDJ ct = new KhachHangDJ(null, true, KhachHangDJ.ActionType.ADD);
-        ct.setVisible(true);
+
     }//GEN-LAST:event_btnKhachHangActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        this.thanhToanHoaDon();
+
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
 
@@ -630,413 +593,5 @@ public class Form_BanHang extends javax.swing.JPanel {
     private javax.swing.JTextField txtTimKiemSanPham;
     private javax.swing.JTextField txtVoucher;
     // End of variables declaration//GEN-END:variables
-    private void loadTableSP(List<SanPham> lst) {
-        model = (DefaultTableModel) tblSanPham.getModel();
-        model.setRowCount(0);
-        for (SanPham sp : lst) {
-            model.addRow(new Object[]{
-                sp.getMaSach(),
-                sp.getTenSach(),
-                sp.getNxb(),
-                sp.getTacGia(),
-                sp.getTheLoai(),
-                sp.getMoTa(),
-                sp.getSoLuong(),
-                sp.getGiaBan()
-            });
-        }
-    }
 
-    private void loadTableHD(List<HoaDonTable> lst) {
-        model = (DefaultTableModel) tblHoaDon.getModel();
-        model.setRowCount(0);
-        int stt = 1;
-        for (HoaDonTable hdT : lst) {
-            model.addRow(new Object[]{
-                stt++,
-                hdT.getIdHoaDon(),
-                hdT.getTenNhanVien(),
-                hdT.getTenKhachHang(),
-                hdT.getNgayTao(),
-                hdT.getTrangThai()
-            });
-        }
-    }
-
-    private void loadTableHDCT() {
-        i = tblHoaDon.getSelectedRow();
-        HoaDonTable hdT = serviceHD.getAllHDChuaHT().get(i);
-        model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-        model.setRowCount(0);
-        for (HDCTTable hDCTTable : serviceHD.getAllCTHD(hdT.getIdHoaDon())) {
-            double thanhTien = hDCTTable.getGiaBan() * hDCTTable.getSoLuong();
-            model.addRow(new Object[]{
-                hDCTTable.getMaSach(),
-                hDCTTable.getTenSach(),
-                hDCTTable.getSoLuong(),
-                hDCTTable.getGiaBan(),
-                thanhTien
-            });
-        }
-    }
-
-    private double tongTienHoaDon;
-
-    //Show Hóa Đơn Chi Tiết
-    private void showHDCT() {
-        i = tblHoaDon.getSelectedRow();
-        HoaDonTable hd = serviceHD.getAllHDChuaHT().get(i);
-        model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-        model.setRowCount(0);
-        this.tongTienHoaDon = 0;
-//        double tienKhachDua = Double.parseDouble(txtTienKhachDua.getText());
-        for (HDCTTable hDCTTable : serviceHD.getAllCTHD(hd.getIdHoaDon())) {
-            double thanhTien = hDCTTable.getGiaBan() * hDCTTable.getSoLuong();
-            model.addRow(new Object[]{
-                hDCTTable.getMaSach(),
-                hDCTTable.getTenSach(),
-                hDCTTable.getSoLuong(),
-                hDCTTable.getGiaBan(),
-                thanhTien
-            });
-            tongTienHoaDon += (hDCTTable.getGiaBan() * hDCTTable.getSoLuong());
-        }
-        lblTongTien.setText(String.valueOf(tongTienHoaDon));
-        lblMaHoaDon.setText(String.valueOf(hd.getIdHoaDon()));
-        lblTenKhachHang.setText("Khách Lẻ");
-        lblSDTKhachHang.setText("null");
-//        lblTienThua.setText(String.valueOf(tienKhachDua - tongTienHoaDon));
-
-    }
-
-//    private void loadKH(List<khachHang> lst) {
-//        cbbKhachHang.removeAllItems();
-//        List<khachHang> lstkh = khservice.getAll_KH();
-//        for (khachHang hang : lst) {
-//            cbbKhachHang.addItem(hang);
-//            lblSDTKhachHang.setText(hang.getSdt());
-//        }
-//
-//    }
-
-    //Show Tổng Tiền
-    private void showTongTien() {
-        i = tblHoaDon.getSelectedRow();
-        HoaDonTable hd = serviceHD.getAllHDChuaHT().get(i);
-        model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-        model.setRowCount(0);
-        this.tongTienHoaDon = 0;
-        for (HDCTTable hDCTTable : serviceHD.getAllCTHD(hd.getIdHoaDon())) {
-            double thanhTien = hDCTTable.getGiaBan() * hDCTTable.getSoLuong();
-            model.addRow(new Object[]{
-                hDCTTable.getMaSach(),
-                hDCTTable.getTenSach(),
-                hDCTTable.getSoLuong(),
-                hDCTTable.getGiaBan(),
-                thanhTien
-            });
-            tongTienHoaDon += (hDCTTable.getGiaBan() * hDCTTable.getSoLuong());
-        }
-        lblTongTien.setText(String.valueOf(tongTienHoaDon));
-    }
-
-    private void searchSP() {
-        this.loadTableSP(serviceSP.timKiemSP(txtTimKiemSanPham.getText()));
-    }
-
-    int sl = 0;
-
-    int chonSLSP() {
-        i = tblSanPham.getSelectedRow();
-        SanPham sp = serviceSP.timKiemSP(txtTimKiemSanPham.getText()).get(i);
-        sl = Integer.valueOf(JOptionPane.showInputDialog("Nhập Số Lượng Sản Phẩm"));
-        return sl;
-    }
-
-    int getIDHD() {
-        i = tblHoaDon.getSelectedRow();
-        HoaDonTable hd = serviceHD.getAllHDChuaHT().get(i);
-        return hd.getIdHoaDon();
-    }
-
-    int getIDHDCT() {
-        int i_HDCT = tblHoaDonChiTiet.getSelectedRow();
-        HDCTTable hdct = serviceHD.getAllCTHD(getIDHD()).get(i_HDCT);
-        return hdct.getId();
-    }
-
-    int getSoLuongSPHDCT() {
-        int i_HDCT = tblHoaDonChiTiet.getSelectedRow();
-        HDCTTable hdct = serviceHD.getAllCTHD(getIDHD()).get(i_HDCT);
-        return hdct.getSoLuong();
-    }
-
-    int IDCTSP() {
-        int i_sp = tblSanPham.getSelectedRow();
-        SanPham sp = serviceSP.timKiemSP(txtTimKiemSanPham.getText()).get(i_sp);
-        return serviceSP.getIDCTSP(sp.getMaSach());
-    }
-
-    int IDCTSP_tableHDCT() {
-        int index = tblHoaDonChiTiet.getSelectedRow();
-        HDCTTable hdct = serviceHD.getAllCTHD(getIDHD()).get(index);
-        return serviceHD.getID_CTSP(hdct.getId());
-    }
-
-    double tienSP() {
-        i = tblSanPham.getSelectedRow();
-        SanPham sp = serviceSP.timKiemSP(txtTimKiemSanPham.getText()).get(i);
-        return sp.getGiaBan();
-    }
-
-    int getSoLuongSP() {
-        int i_SP = tblSanPham.getSelectedRow();
-        SanPham sp = serviceSP.timKiemSP(txtTimKiemSanPham.getText()).get(i_SP);
-        return sp.getSoLuong();
-    }
-
-    int getPTTT() {
-        if (rdoTienMat.isSelected()) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-
-    private void addHD() {
-        try {
-//            if(username.equals("")){
-//                JOptionPane.showMessageDialog(this, "Bạn chưa đăng nhập");
-//            } else{
-//                    
-//                    }
-            khachHang kh = new khachHang();
-            serviceHD.addHoaDon(1, Integer.valueOf(kh.getId()), BigDecimal.ZERO, 1, getPTTT());
-            this.loadTableHD(serviceHD.getAllHDChuaHT());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void huyHD() {
-        try {
-            i = tblHoaDon.getSelectedRow();
-            if (i < 0) {
-                JOptionPane.showMessageDialog(this, "Bạn chưa chọn hóa đơn cần hủy !");
-            } else {
-                String luaChon[] = {"Xác Nhận", "Trở Về"};
-                int chon = JOptionPane.showOptionDialog(this, "Xác Nhận Hủy Hóa Đơn ? ", "", WIDTH, HEIGHT, null, luaChon, EXIT_ON_CLOSE);
-                if (chon == 0) {
-                    i = tblHoaDon.getSelectedRow();
-                    HoaDonTable hd = serviceHD.getAllHDChuaHT().get(i);
-                    serviceHD.removeHoaDon(hd.getIdHoaDon());
-//                    serviceSP.addSLSP(IDCTSP_tableHDCT(), getSoLuongSPHDCT());
-                    this.loadTableHD(serviceHD.getAllHDChuaHT());
-                    lblTongTien.setText("");
-                    lblMaHoaDon.setText("");
-                    model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-                    model.setRowCount(0);
-//                    this.loadTableSP(serviceSP.timKiemSP(txtTimKiemSanPham.getText()));
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Hủy Thất Bại");
-        }
-    }
-
-    private void themSP_HDCT() {
-        i = tblHoaDon.getSelectedRow();
-        if (i < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn Chưa Chọn Hóa Đơn");
-        } else {
-            try {
-                int checkSP = 0;
-                int soLuong = chonSLSP();
-                if (soLuong <= 0) {
-                    JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0");
-                } else if (soLuong > getSoLuongSP()) {
-                    JOptionPane.showMessageDialog(this, "Số lượng sản phẩm không đủ");
-                } else {
-                    int i_HD = tblHoaDon.getSelectedRow();
-                    HoaDonTable hd = serviceHD.getAllHDChuaHT().get(i_HD);
-                    for (HDCTTable ct : serviceHD.getAllCTHD(hd.getIdHoaDon())) {
-                        if (ct.getIdSachCT() == IDCTSP()) {
-                            serviceHD.updateSLSPHDCT(ct.getId(), soLuong);
-                            serviceHD.getSLSP(IDCTSP(), serviceHD.getIDHD(hd.getIdHoaDon()));
-//                            serviceHD.updateGiaSPHDCT(sLSP, IDCTSP(), serviceHD.getIDHD(hd.getIdHoaDon()));
-                            serviceSP.reduceSLSP(IDCTSP(), soLuong);
-                            this.loadTableHDCT();
-                            this.loadTableSP(serviceSP.timKiemSP(txtTimKiemSanPham.getText()));
-                            this.showTongTien();
-                            checkSP = 1;
-                        }
-
-                    }
-                    if (checkSP == 0) {
-                        serviceSP.reduceSLSP(IDCTSP(), soLuong);
-                        serviceHD.addSPHDCT(serviceHD.getIDHD(hd.getIdHoaDon()), IDCTSP(), soLuong);
-                        this.loadTableHDCT();
-                        this.loadTableSP(serviceSP.timKiemSP(txtTimKiemSanPham.getText()));
-                        this.showTongTien();
-                    }
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Giá trị không hợp lệ !");
-            }
-        }
-    }
-
-    private void updateSLHDCT() {
-        i = tblHoaDonChiTiet.getSelectedRow();
-        if (i < 0) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm cần sửa.");
-        } else {
-            try {
-                int tongSL = serviceSP.sumSLSP(IDCTSP_tableHDCT(), getIDHDCT());
-                int soLuongUpdate = Integer.valueOf(JOptionPane.showInputDialog("Nhập số lượng muốn sửa "));
-                if (soLuongUpdate <= tongSL && soLuongUpdate > 0) {
-                    serviceHD.setSLHDCT(getIDHDCT(), soLuongUpdate);
-                    serviceSP.updateSLSP(IDCTSP_tableHDCT(), tongSL - soLuongUpdate);
-//                    double giaUpdate = soLuongUpdate * serviceHD.getGiaBan(IDCTSP_tableHDCT());
-//                    serviceHD.updateGiaSPHDCT_btnSua(giaUpdate, getIDHDCT());
-                    this.loadTableHDCT();
-                    this.loadTableSP(serviceSP.timKiemSP(txtTimKiemSanPham.getText()));
-                    this.showTongTien();
-                } else if (soLuongUpdate < 0) {
-                    JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Số lượng sản phẩm không đủ");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Giá trị không hợp lệ");
-            }
-        }
-    }
-
-    private void xoa1SPHDCT() {
-        i = tblHoaDonChiTiet.getSelectedRow();
-        if (i < 0) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa");
-        } else {
-            String luaChon[] = {"Xác Nhận", "Trở Về"};
-            int chon = JOptionPane.showOptionDialog(this, "Xác Nhận Xóa Sản Phẩm Này ? ", "", WIDTH, HEIGHT, null, luaChon, EXIT_ON_CLOSE);
-            if (chon == 0) {
-                serviceSP.addSLSP(IDCTSP_tableHDCT(), getSoLuongSPHDCT());
-                serviceHD.xoa1SPHDCT(getIDHDCT());
-                this.loadTableHDCT();
-                this.loadTableSP(serviceSP.timKiemSP(txtTimKiemSanPham.getText()));
-                JOptionPane.showMessageDialog(this, "Xóa thành công");
-                this.showTongTien();
-            }
-        }
-    }
-
-    private void clear() {
-        lblMaHoaDon.setText("");
-//        lblTenNhanVien.setText(serviceHD.getTenNhanVien(1));
-//        lblTenKhachHang.setText("Khách Lẻ");
-//        lblSDTKhachHang.setText("null");
-        lblTongTien.setText("0.0");
-//        lblTienThua.setText("0.0");
-        txaGhiChu.setText("");
-        txtVoucher.setText("");
-        txtTienKhachDua.setText("");
-        rdoTienMat.isSelected();
-
-    }
-
-    private void thanhToanHoaDon() {
-        try {
-            i = tblHoaDon.getSelectedRow();
-            model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-            if (i < 0) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn cần thanh toán @@");
-            } else if (model.getRowCount() < 1) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cho khách hàng @@");
-            } else {
-                try {
-                    if (lblTenKhachHang.getText().equals("Khách Lẻ") && lblSDTKhachHang.getText().equals("null")) {
-                        if (rdoTienMat.isSelected()) {
-                            if (txtTienKhachDua.getText().isEmpty()) {
-                                JOptionPane.showMessageDialog(this, "Bạn chưa nhập số tiền khách đưa @@");
-                                return;
-                            }
-                            double tienNhan = Double.parseDouble(txtTienKhachDua.getText());
-                            if (tienNhan <= 0) {
-                                JOptionPane.showMessageDialog(this, "Tiền nhận phải lớn hơn 0");
-                                return;
-                            }
-                            if (tienNhan == Double.parseDouble(lblTongTien.getText())) {
-                                serviceHD.thanhToanHD(Integer.valueOf(lblMaHoaDon.getText()), 1, Double.parseDouble(lblTongTien.getText()), getPTTT());
-                                this.loadTableHD(serviceHD.getAllHDChuaHT());
-//                                this.loadTableHDCT();
-                                clear();
-                                JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công @@");
-                            } else if (tienNhan < Double.parseDouble(lblTongTien.getText())) {
-                                JOptionPane.showMessageDialog(this, "Thiếu tiền không thể thanh toán @@");
-                            } else {
-                                double tienThua = tienNhan - Double.parseDouble(lblTongTien.getText());
-                                serviceHD.thanhToanHD(Integer.valueOf(lblMaHoaDon.getText()), 1, Double.parseDouble(lblTongTien.getText()), getPTTT());
-                                this.loadTableHD(serviceHD.getAllHDChuaHT());
-                                JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công @@");
-                                lblTienTraLai.setText(String.valueOf(tienThua));
-                                clear();
-                            }
-                        } else if (rdoChuyenKhoan.isEnabled()) {
-                            serviceHD.thanhToanHD(Integer.valueOf(lblMaHoaDon.getText()), 1, Double.parseDouble(lblTongTien.getText()), getPTTT());
-                            this.loadTableHD(serviceHD.getAllHDChuaHT());
-                            JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công @@");
-                        }
-                    } else if (lblTenKhachHang.getText().isBlank() && lblSDTKhachHang.getText().isBlank()) {
-                        if (rdoTienMat.isSelected()) {
-                            if (txtTienKhachDua.getText().isEmpty()) {
-                                JOptionPane.showMessageDialog(this, "Bạn chưa nhập số tiền khách đưa @@");
-                                return;
-                            }
-                            double tienNhan = Double.parseDouble(txtTienKhachDua.getText());
-                            if (tienNhan <= 0) {
-                                JOptionPane.showMessageDialog(this, "Tiền nhận phải lớn hơn 0");
-                                return;
-                            }
-                            if (tienNhan == Double.parseDouble(lblTongTien.getText())) {
-                                serviceHD.thanhToanHD(Integer.valueOf(lblMaHoaDon.getText()), 1, Double.parseDouble(lblTongTien.getText()), getPTTT());
-                                this.loadTableHD(serviceHD.getAllHDChuaHT());
-//                                this.loadTableHDCT();
-                                clear();
-                                JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công @@");
-                            } else if (tienNhan < Double.parseDouble(lblTongTien.getText())) {
-                                JOptionPane.showMessageDialog(this, "Thiếu tiền không thể thanh toán @@");
-                            } else {
-                                double tienThua = tienNhan - Double.parseDouble(lblTongTien.getText());
-                                serviceHD.thanhToanHD(Integer.valueOf(lblMaHoaDon.getText()), 1, Double.parseDouble(lblTongTien.getText()), getPTTT());
-                                this.loadTableHD(serviceHD.getAllHDChuaHT());
-                                JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công @@");
-                                lblTienTraLai.setText(String.valueOf(tienThua));
-                                clear();
-                            }
-                        } else if (rdoChuyenKhoan.isEnabled()) {
-                            serviceHD.thanhToanHD(Integer.valueOf(lblMaHoaDon.getText()), 1, Double.parseDouble(lblTongTien.getText()), getPTTT());
-                            this.loadTableHD(serviceHD.getAllHDChuaHT());
-                            JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công @@");
-                        }
-                    }
-
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Số tiền nhập vào không hợp lệ @@");
-                }
-            }
-            model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-            model.setRowCount(0);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Thanh Toán Thất Bại @@");
-        }
-    }
-
-    private void chonKhachHang() {
-
-    }
-
-    private void getKhachHang() {
-
-    }
 }
