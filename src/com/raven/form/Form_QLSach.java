@@ -5,17 +5,30 @@
  */
 package com.raven.form;
 
+import com.raven.Model2.Sach;
+import com.raven.Service.SachService;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author RAVEN
  */
 public class Form_QLSach extends javax.swing.JPanel {
 
+    private DefaultTableModel dtm;
+    private List<Sach> list = new ArrayList<>();
+    private SachService sv = new SachService();
+
     /**
      * Creates new form Form_1
      */
     public Form_QLSach() {
         initComponents();
+        dtm = (DefaultTableModel) SachTB.getModel();
+        list = sv.getAll();
+        showData(list);
     }
 
     /**
@@ -36,7 +49,7 @@ public class Form_QLSach extends javax.swing.JPanel {
         panelBorder1 = new com.raven.swing.PanelBorder();
         jLabel2 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
-        table = new com.raven.swing.Table();
+        SachTB = new com.raven.swing.Table();
         jLabel1 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
 
@@ -72,24 +85,24 @@ public class Form_QLSach extends javax.swing.JPanel {
 
         spTable.setBorder(null);
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        SachTB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Mã sách", "Tên sách", "Số lượng", "Giá bán", "Thể loại", "Ngày thêm"
+                "Mã sách", "Tên sách", "Số lượng", "Giá bán", "Tác giả", "Thể loại", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        table.getTableHeader().setReorderingAllowed(false);
-        spTable.setViewportView(table);
+        SachTB.getTableHeader().setReorderingAllowed(false);
+        spTable.setViewportView(SachTB);
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -194,8 +207,14 @@ public class Form_QLSach extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-
+    public void showData(List<Sach> listVC) {
+        dtm.setRowCount(0);
+        listVC.forEach(c -> dtm.addRow(new Object[]{
+            c.getId(), c.getTenSach(), c.getSoLuong(), c.getGiaBan(), c.getTacGia(), c.getTheLoai(), c.getTrangThai()
+        }));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.raven.swing.Table SachTB;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -207,6 +226,5 @@ public class Form_QLSach extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField1;
     private com.raven.swing.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;
-    private com.raven.swing.Table table;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,17 +5,42 @@
  */
 package com.raven.form;
 
+import com.raven.Model2.NXB;
+import com.raven.Model2.TacGia;
+import com.raven.Model2.TheLoai;
+import com.raven.Service.NXBService;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author RAVEN
  */
-public class Form_QLNXB_TG extends javax.swing.JPanel {
+public final class Form_QLNXB_TG extends javax.swing.JPanel {
+
+    private final DefaultTableModel dtm1;
+    private final DefaultTableModel dtm2;
+    private final DefaultTableModel dtm3;
+    private List<TacGia> listTG = new ArrayList<>();
+    private List<TheLoai> listTL = new ArrayList<>();
+    private List<NXB> listNXB = new ArrayList<>();
+    private final NXBService sv = new NXBService();
 
     /**
      * Creates new form Form_1
      */
     public Form_QLNXB_TG() {
         initComponents();
+        dtm1 = (DefaultTableModel) tbTG.getModel();
+        dtm2 = (DefaultTableModel) tbTL.getModel();
+        dtm3 = (DefaultTableModel) tbNXB.getModel();
+        listTG = sv.getAllTG();
+        showData1(listTG);
+        listTL = sv.getAllTL();
+        showData2(listTL);
+        listNXB = sv.getAllNXB();
+        showData3(listNXB);
     }
 
     /**
@@ -37,7 +62,7 @@ public class Form_QLNXB_TG extends javax.swing.JPanel {
         panelBorder1 = new com.raven.swing.PanelBorder();
         jLabel2 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
-        table = new com.raven.swing.Table();
+        tbNXB = new com.raven.swing.Table();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -48,7 +73,7 @@ public class Form_QLNXB_TG extends javax.swing.JPanel {
         panelBorder2 = new com.raven.swing.PanelBorder();
         jLabel3 = new javax.swing.JLabel();
         spTable1 = new javax.swing.JScrollPane();
-        table1 = new com.raven.swing.Table();
+        tbTG = new com.raven.swing.Table();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
@@ -59,7 +84,7 @@ public class Form_QLNXB_TG extends javax.swing.JPanel {
         panelBorder3 = new com.raven.swing.PanelBorder();
         jLabel11 = new javax.swing.JLabel();
         spTable2 = new javax.swing.JScrollPane();
-        table2 = new com.raven.swing.Table();
+        tbTL = new com.raven.swing.Table();
         jLabel12 = new javax.swing.JLabel();
 
         jButton1.setBackground(new java.awt.Color(18, 64, 118));
@@ -99,7 +124,7 @@ public class Form_QLNXB_TG extends javax.swing.JPanel {
 
         spTable.setBorder(null);
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        tbNXB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -115,8 +140,8 @@ public class Form_QLNXB_TG extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        table.getTableHeader().setReorderingAllowed(false);
-        spTable.setViewportView(table);
+        tbNXB.getTableHeader().setReorderingAllowed(false);
+        spTable.setViewportView(tbNXB);
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -227,7 +252,7 @@ public class Form_QLNXB_TG extends javax.swing.JPanel {
 
         spTable1.setBorder(null);
 
-        table1.setModel(new javax.swing.table.DefaultTableModel(
+        tbTG.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -243,8 +268,8 @@ public class Form_QLNXB_TG extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        table1.getTableHeader().setReorderingAllowed(false);
-        spTable1.setViewportView(table1);
+        tbTG.getTableHeader().setReorderingAllowed(false);
+        spTable1.setViewportView(tbTG);
 
         javax.swing.GroupLayout panelBorder2Layout = new javax.swing.GroupLayout(panelBorder2);
         panelBorder2.setLayout(panelBorder2Layout);
@@ -355,7 +380,7 @@ public class Form_QLNXB_TG extends javax.swing.JPanel {
 
         spTable2.setBorder(null);
 
-        table2.setModel(new javax.swing.table.DefaultTableModel(
+        tbTL.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -371,8 +396,8 @@ public class Form_QLNXB_TG extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        table2.getTableHeader().setReorderingAllowed(false);
-        spTable2.setViewportView(table2);
+        tbTL.getTableHeader().setReorderingAllowed(false);
+        spTable2.setViewportView(tbTL);
 
         javax.swing.GroupLayout panelBorder3Layout = new javax.swing.GroupLayout(panelBorder3);
         panelBorder3.setLayout(panelBorder3Layout);
@@ -482,7 +507,26 @@ public class Form_QLNXB_TG extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
-
+    public void showData1(List<TacGia> listVC) {
+        dtm1.setRowCount(0);
+        listVC.forEach(c -> dtm1.addRow(new Object[]{
+            c.getId(), c.getTen(), c.getMoTa(), c.getTrangThai()
+        }));
+    }
+    
+    public void showData2(List<TheLoai> listVC) {
+        dtm2.setRowCount(0);
+        listVC.forEach(c -> dtm2.addRow(new Object[]{
+            c.getId(), c.getTen(), c.getMoTa(), c.getTrangThai()
+        }));
+    }
+    
+    public void showData3(List<NXB> listVC) {
+        dtm3.setRowCount(0);
+        listVC.forEach(c -> dtm3.addRow(new Object[]{
+            c.getId(), c.getTen(), c.getMoTa(), c.getTrangThai()
+        }));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -515,8 +559,8 @@ public class Form_QLNXB_TG extends javax.swing.JPanel {
     private javax.swing.JScrollPane spTable;
     private javax.swing.JScrollPane spTable1;
     private javax.swing.JScrollPane spTable2;
-    private com.raven.swing.Table table;
-    private com.raven.swing.Table table1;
-    private com.raven.swing.Table table2;
+    private com.raven.swing.Table tbNXB;
+    private com.raven.swing.Table tbTG;
+    private com.raven.swing.Table tbTL;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,51 +11,43 @@ import java.util.Date;
  * @author LENOVO
  */
 public class Sach {
-    private Integer id;
-    private String ma;
+    private String id;
     private String tenSach;
-    private Double giaBan;
-    private Integer soLuong;
-    private Date ngayThem;
+    private String soTrang;
+    private String giaBan;
+    private String soLuong;
+    private String ngayThem;
     private String nxb;
     private String tacGia;
-    private String hinhAnh;
     private String theLoai;
+    private String hinhAnh;
     private String moTa;
     private String trangThai;
 
     public Sach() {
     }
 
-    public Sach(Integer id, String ma, String tenSach, Double giaBan, Integer soLuong, Date ngayThem, String nxb, String tacGia, String hinhAnh, String theLoai, String moTa, String trangThai) {
+    public Sach(String id, String tenSach, String soTrang, String giaBan, String soLuong, String ngayThem, String nxb, String tacGia, String theLoai, String hinhAnh, String moTa, String trangThai) {
         this.id = id;
-        this.ma = ma;
         this.tenSach = tenSach;
+        this.soTrang = soTrang;
         this.giaBan = giaBan;
         this.soLuong = soLuong;
         this.ngayThem = ngayThem;
         this.nxb = nxb;
         this.tacGia = tacGia;
-        this.hinhAnh = hinhAnh;
         this.theLoai = theLoai;
+        this.hinhAnh = hinhAnh;
         this.moTa = moTa;
         this.trangThai = trangThai;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public String getMa() {
-        return ma;
-    }
-
-    public void setMa(String ma) {
-        this.ma = ma;
     }
 
     public String getTenSach() {
@@ -66,27 +58,35 @@ public class Sach {
         this.tenSach = tenSach;
     }
 
-    public Double getGiaBan() {
+    public String getSoTrang() {
+        return soTrang;
+    }
+
+    public void setSoTrang(String soTrang) {
+        this.soTrang = soTrang;
+    }
+
+    public String getGiaBan() {
         return giaBan;
     }
 
-    public void setGiaBan(Double giaBan) {
+    public void setGiaBan(String giaBan) {
         this.giaBan = giaBan;
     }
 
-    public Integer getSoLuong() {
+    public String getSoLuong() {
         return soLuong;
     }
 
-    public void setSoLuong(Integer soLuong) {
+    public void setSoLuong(String soLuong) {
         this.soLuong = soLuong;
     }
 
-    public Date getNgayThem() {
+    public String getNgayThem() {
         return ngayThem;
     }
 
-    public void setNgayThem(Date ngayThem) {
+    public void setNgayThem(String ngayThem) {
         this.ngayThem = ngayThem;
     }
 
@@ -106,20 +106,20 @@ public class Sach {
         this.tacGia = tacGia;
     }
 
-    public String getHinhAnh() {
-        return hinhAnh;
-    }
-
-    public void setHinhAnh(String hinhAnh) {
-        this.hinhAnh = hinhAnh;
-    }
-
     public String getTheLoai() {
         return theLoai;
     }
 
     public void setTheLoai(String theLoai) {
         this.theLoai = theLoai;
+    }
+
+    public String getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 
     public String getMoTa() {
@@ -137,6 +137,6 @@ public class Sach {
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
-   
+
     
 }

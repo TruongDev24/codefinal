@@ -5,18 +5,29 @@
  */
 package com.raven.form;
 
+import com.raven.Model2.KhuyenMaiModel;
+import com.raven.Service.KhuyenMaiService;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author RAVEN
  */
 public class Form_QLKhuyenMai extends javax.swing.JPanel {
 
+    private DefaultTableModel dtm;
+    private List<KhuyenMaiModel> list = new ArrayList<>();
+    private KhuyenMaiService sv = new KhuyenMaiService();
     /**
      * Creates new form Form_1
      */
     public Form_QLKhuyenMai() {
         initComponents();
-        
+        dtm = (DefaultTableModel) tbKM.getModel();
+        list = sv.getAll();
+        showData(list);
     }
 
     /**
@@ -38,7 +49,7 @@ public class Form_QLKhuyenMai extends javax.swing.JPanel {
         panelBorder4 = new com.raven.swing.PanelBorder();
         jLabel5 = new javax.swing.JLabel();
         spTable3 = new javax.swing.JScrollPane();
-        table = new com.raven.swing.Table();
+        tbKM = new com.raven.swing.Table();
         jLabel1 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
         panelBorder5 = new com.raven.swing.PanelBorder();
@@ -82,7 +93,7 @@ public class Form_QLKhuyenMai extends javax.swing.JPanel {
 
         spTable3.setBorder(null);
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        tbKM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -98,8 +109,8 @@ public class Form_QLKhuyenMai extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        table.getTableHeader().setReorderingAllowed(false);
-        spTable3.setViewportView(table);
+        tbKM.getTableHeader().setReorderingAllowed(false);
+        spTable3.setViewportView(tbKM);
 
         javax.swing.GroupLayout panelBorder4Layout = new javax.swing.GroupLayout(panelBorder4);
         panelBorder4.setLayout(panelBorder4Layout);
@@ -286,6 +297,12 @@ public class Form_QLKhuyenMai extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton13ActionPerformed
 
 
+    public void showData(List<KhuyenMaiModel> listVC) {
+        dtm.setRowCount(0);
+        listVC.forEach(c -> dtm.addRow(new Object[]{
+            c.getId(), c.getTen(), c.getNgaybd(), c.getNgaykt(), c.getKieuGiam(), c.getTrangThai()
+        }));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -306,7 +323,7 @@ public class Form_QLKhuyenMai extends javax.swing.JPanel {
     private com.raven.swing.PanelBorder panelBorder5;
     private javax.swing.JScrollPane spTable3;
     private javax.swing.JScrollPane spTable4;
-    private com.raven.swing.Table table;
     private com.raven.swing.Table table1;
+    private com.raven.swing.Table tbKM;
     // End of variables declaration//GEN-END:variables
 }
