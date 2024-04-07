@@ -81,12 +81,12 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void init() {
         this.setLocationRelativeTo(null);
-        new Timer(5, new ActionListener() {
+        new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int value = pgbLoad.getValue();
                 if (value < pgbLoad.getMaximum()) {
-                    pgbLoad.setValue(value + 1);
+                    pgbLoad.setValue(value + 5);
                 } else {
                     NewJFrame.this.dispose();
                 }

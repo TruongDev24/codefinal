@@ -1,16 +1,29 @@
 package com.raven.form;
 
+import com.raven.Model2.SachBanChay;
+import com.raven.Service.SachBanChaySV;
 import com.raven.model.Model_Card;
 import com.raven.swing.ScrollBar;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Form_Home extends javax.swing.JPanel {
 
+    private DefaultTableModel dtm;
+    private List<SachBanChay> list = new ArrayList<>();
+    private SachBanChaySV sv = new SachBanChaySV();
+
     public Form_Home() {
         initComponents();
+        dtm = (DefaultTableModel) tbSBC.getModel();
+        list = sv.getAll();
+        showData(list);
+
         card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Tổng số lượng đơn hàng", "205", "Tăng 27%"));
         card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Tổng lợi nhuận tháng này", "15000000 vnđ", "Tăng 20%"));
         card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Tổng số khách hàng mới", "30", "Tăng 30%"));
@@ -21,7 +34,7 @@ public class Form_Home extends javax.swing.JPanel {
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        
+
 //        table.addRow(new Object[]{"Mike Bhand", "mikebhand@gmail.com", "Admin", "25 Apr,2018", 99 , 99});
 //        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
 //        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
@@ -49,7 +62,7 @@ public class Form_Home extends javax.swing.JPanel {
         panelBorder1 = new com.raven.swing.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
-        table = new com.raven.swing.Table();
+        tbSBC = new com.raven.swing.Table();
 
         panel.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
@@ -73,7 +86,7 @@ public class Form_Home extends javax.swing.JPanel {
 
         spTable.setBorder(null);
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        tbSBC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -89,9 +102,9 @@ public class Form_Home extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        table.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        table.getTableHeader().setReorderingAllowed(false);
-        spTable.setViewportView(table);
+        tbSBC.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        tbSBC.getTableHeader().setReorderingAllowed(false);
+        spTable.setViewportView(tbSBC);
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -136,7 +149,12 @@ public class Form_Home extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+    public void showData(List<SachBanChay> listVC) {
+        dtm.setRowCount(0);
+        listVC.forEach(c -> dtm.addRow(new Object[]{
+            c.getMa(), c.getTen(), c.getTacGia(), c.getTheLoai(), c.getSoLuongBan()
+        }));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.raven.component.Card card1;
     private com.raven.component.Card card2;
@@ -145,6 +163,6 @@ public class Form_Home extends javax.swing.JPanel {
     private javax.swing.JLayeredPane panel;
     private com.raven.swing.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;
-    private com.raven.swing.Table table;
+    private com.raven.swing.Table tbSBC;
     // End of variables declaration//GEN-END:variables
 }
