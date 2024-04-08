@@ -12,8 +12,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -424,6 +432,49 @@ public class NguoiDungDJ extends javax.swing.JDialog {
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm mới người dùng thất bại.");
             }
+
+            String to = txtEmail.getText();
+            String subject = "Xác nhận";
+            String messageText = "Đây là email xác nhận";
+            String from = "truonglevan496@gmail.com";
+            String passw = "zhdhjyankyhptebz";
+
+            // Cài đặt thông số cho server email
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com"); // Đổi lại với SMTP server của bạn
+            props.put("mail.smtp.port", "587"); // Đổi lại với cổng của SMTP server
+            props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+            // Tạo session để gửi email
+            Session session = Session.getInstance(props,
+                    new javax.mail.Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(from, passw);
+                }
+            });
+
+            try {
+                // Tạo message
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(from));
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(to));
+                message.setSubject(subject);
+                message.setText(messageText);
+
+                // Gửi email
+                Transport.send(message);
+
+                JOptionPane.showMessageDialog(this, "Email sent successfully");
+
+            } catch (MessagingException e) {
+                System.out.println(e.getMessage());
+                System.out.println(JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else if (actionType == ActionType.EDIT) {
             String cccd = txtCccd.getText();
             String tenNV = txtTen.getText();
@@ -456,6 +507,48 @@ public class NguoiDungDJ extends javax.swing.JDialog {
                 this.dispose(); // Close the current window after successful edit
             } else {
                 JOptionPane.showMessageDialog(this, "Sửa người dùng thất bại.");
+            }
+            String to = txtEmail.getText();
+            String subject = "Xác nhận";
+            String messageText = "Đây là email xác nhận";
+            String from = "truonglevan496@gmail.com";
+            String passw = "zhdhjyankyhptebz";
+
+            // Cài đặt thông số cho server email
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com"); // Đổi lại với SMTP server của bạn
+            props.put("mail.smtp.port", "587"); // Đổi lại với cổng của SMTP server
+            props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+            // Tạo session để gửi email
+            Session session = Session.getInstance(props,
+                    new javax.mail.Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(from, passw);
+                }
+            });
+
+            try {
+                // Tạo message
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(from));
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(to));
+                message.setSubject(subject);
+                message.setText(messageText);
+
+                // Gửi email
+                Transport.send(message);
+
+                JOptionPane.showMessageDialog(this, "Email sent successfully");
+
+            } catch (MessagingException e) {
+                System.out.println(e.getMessage());
+                System.out.println(JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
