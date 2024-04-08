@@ -5,6 +5,7 @@
  */
 package com.raven.main;
 
+import com.raven.Model2.DangNhap;
 import com.raven.event.EventMenuSelected;
 import com.raven.form.Form_BanHang;
 //import com.raven.form.Form_BanHang;
@@ -20,6 +21,7 @@ import com.raven.form.Form_QLNXB_TG;
 import com.raven.form.Form_MyAccount;
 import com.raven.form.Form_QLVoucher;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
@@ -108,10 +110,9 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
-    private void account() {
-        Form_MyAccount ac = new Form_MyAccount(this, true);
-        ac.setVisible(true);
-        ac.setLocationRelativeTo(null);
+    public void account() {
+        Form_MyAccount form = new Form_MyAccount(this, true);
+        form.setVisible(true);
     }
 
     /**

@@ -5,8 +5,10 @@
 package com.raven.form;
 
 import com.raven.Model2.DangNhap;
+import com.raven.Model2.myAccount;
 import com.raven.Service.dangNhapService;
 import com.raven.main.Main;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -18,6 +20,7 @@ public class Form_Login extends javax.swing.JFrame {
 
     List<DangNhap> list;
     dangNhapService sv = new dangNhapService();
+//    List<myAccount> am = new ArrayList<>();
 
     /**
      * Creates new form Form_Login
@@ -202,22 +205,40 @@ public class Form_Login extends javax.swing.JFrame {
         for (DangNhap dn : list) {
             if (!user.equals(dn.getUser())) {
                 txtTB1.setText("Sai username!");
-                System.out.println(dn.getUser());
+
             }
             if (!pw.equals(dn.getPass())) {
                 txtTB2.setText("Sai password!");
             }
             if (user.equals(dn.getUser()) && pw.equals(dn.getPass())) {
+                System.out.println(dn.getUser() + "  " + dn.getPass());
+                System.out.println(dn.getTenNV() + "  " + dn.getRole());
+                System.out.println(dn.getHinhAnh());
+
+//                myAccount ac = new myAccount();
+//                ac.setTenNV(dn.getTenNV());
+//                ac.setRole(dn.getRole());
+//                ac.setHinhAnh(dn.getHinhAnh());
+//                am.add(ac);
+                Form_MyAccount form = new Form_MyAccount(null, true);
+                form.setTenNV(dn.getTenNV());
+                form.setRole(dn.getRole());
+                form.setHinhAnh(dn.getHinhAnh());
+
                 txtTB1.setText(null);
                 txtTB2.setText(null);
                 this.dispose();
+
                 Main m = new Main();
                 m.setVisible(true);
+                form.setVisible(true);
             }
         }
-
     }//GEN-LAST:event_dangNhapBtnActionPerformed
 
+//    public List<myAccount> getMyAccounts() {
+//        return am;
+//    }
     private void helpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_helpMouseClicked
         // TODO add your handling code here:
         String phoneNumber = "123-456-7890"; // Số điện thoại mẫu

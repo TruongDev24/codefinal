@@ -4,11 +4,29 @@
  */
 package com.raven.form;
 
+import com.raven.Model2.DangNhap;
+import com.raven.Model2.myAccount;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author LENOVO
  */
 public class Form_MyAccount extends javax.swing.JDialog {
+
+    public void setTenNV(String tenNV) {
+        hoTenNV.setText(tenNV);
+    }
+
+    public void setRole(String role) {
+        roleNV.setText(role);
+    }
+
+    public void setHinhAnh(String hinhAnhIcon) {
+        hinhAnh.setText(hinhAnhIcon);
+    }
 
     /**
      * Creates new form ac
@@ -17,6 +35,9 @@ public class Form_MyAccount extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+//        hoTenNV.setText(m.get(0).getTenNV());
+//        roleNV.setText(m.get(0).getRole());
+//        hinhAnh.setText(m.get(0).getHinhAnh());
     }
 
     /**
@@ -29,28 +50,28 @@ public class Form_MyAccount extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        hinhAnh = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        hoTenNV = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        roleNV = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("jLabel1");
-        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        hinhAnh.setText("jLabel1");
+        hinhAnh.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setText("Họ tên:");
 
-        jTextField1.setEditable(false);
+        hoTenNV.setEditable(false);
 
         jLabel3.setText("Vai trò:");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("jLabel4");
+        roleNV.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        roleNV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        roleNV.setText("jLabel4");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -58,18 +79,18 @@ public class Form_MyAccount extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(hinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(roleNV, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 133, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1)))
+                        .addComponent(hoTenNV)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -80,14 +101,14 @@ public class Form_MyAccount extends javax.swing.JDialog {
                         .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(hoTenNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4)))
+                            .addComponent(roleNV)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(hinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -135,6 +156,7 @@ public class Form_MyAccount extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 Form_MyAccount dialog = new Form_MyAccount(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -149,11 +171,11 @@ public class Form_MyAccount extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel hinhAnh;
+    private javax.swing.JTextField hoTenNV;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel roleNV;
     // End of variables declaration//GEN-END:variables
 }

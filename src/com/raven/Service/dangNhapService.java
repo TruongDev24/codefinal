@@ -15,11 +15,11 @@ import java.util.ArrayList;
  * @author LENOVO
  */
 public class dangNhapService {
-
+    
     private Connection conn = DBConnect.getConnection();
     
     public List<DangNhap> getAll() {
-        String sql = "select ten_nv, username, password, vai_tro from NhanVien";
+        String sql = "select ten_nv, username, password, vai_tro, hinh_anh from NhanVien";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
             List<DangNhap> vm = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
@@ -28,7 +28,8 @@ public class dangNhapService {
                         rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getString(4));
+                        rs.getString(4),
+                        rs.getString(5));
                 vm.add(vcm);
             }
             return vm;

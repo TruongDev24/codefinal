@@ -13,8 +13,17 @@ public class DangNhap {
     private String user;
     private String pass;
     private String role;
+    private String hinhAnh;
 
     public DangNhap() {
+    }
+
+    public DangNhap(String tenNV, String user, String pass, String role, String hinhAnh) {
+        this.tenNV = tenNV;
+        this.user = user;
+        this.pass = pass;
+        this.role = role;
+        this.hinhAnh = hinhAnh;
     }
 
     public String getTenNV() {
@@ -49,12 +58,13 @@ public class DangNhap {
         this.role = role;
     }
 
-    public DangNhap(String tenNV, String user, String pass, String role) {
-        this.tenNV = tenNV;
-        this.user = user;
-        this.pass = pass;
-        this.role = role;
+    public String getHinhAnh() {
+        return hinhAnh;
     }
-    
+
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
+
     
 }
