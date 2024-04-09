@@ -54,6 +54,7 @@ public class NXB_Dialog extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTextArea1);
 
         buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("Hoạt động");
 
         buttonGroup1.add(jRadioButton2);
