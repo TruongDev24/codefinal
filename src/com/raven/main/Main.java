@@ -7,6 +7,7 @@ package com.raven.main;
 
 import com.raven.Model2.DangNhap;
 import com.raven.event.EventMenuSelected;
+import com.raven.form.Form1;
 import com.raven.form.Form_BanHang;
 //import com.raven.form.Form_BanHang;
 import com.raven.form.Form_QLKhachHang;
@@ -44,6 +45,7 @@ public class Main extends javax.swing.JFrame {
     private Form_QLNguoiDung form7;
     private Form_BanHang form9;
     private Form_QLVoucher form8;
+    private Form1 form10;
 
     public Main() {
         initComponents();
@@ -58,6 +60,7 @@ public class Main extends javax.swing.JFrame {
         form7 = new Form_QLNguoiDung();
         form9 = new Form_BanHang();
         form8 = new Form_QLVoucher();
+        form10 = new Form1();
         menu.initMoving(Main.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
@@ -81,7 +84,7 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 9) {
                     setForm(form7);
                 } else if (index == 10) {
-                    account();
+                    setForm(form10);
                 } else if (index == 18) {
                     logout();
                 }
