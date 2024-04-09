@@ -6,6 +6,9 @@ package com.raven.form;
 
 import com.raven.Model2.DangNhap;
 import com.raven.Model2.myAccount;
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -26,6 +29,7 @@ public class Form_MyAccount extends javax.swing.JDialog {
 
     public void setHinhAnh(String hinhAnhIcon) {
         hinhAnh.setText(hinhAnhIcon);
+        loadImageFromComputer(hinhAnhIcon);
     }
 
     /**
@@ -40,6 +44,30 @@ public class Form_MyAccount extends javax.swing.JDialog {
 //        hinhAnh.setText(m.get(0).getHinhAnh());
     }
 
+    private void loadImageFromComputer(String imageName) {
+        try {
+            // Lấy đường dẫn đầy đủ của ảnh từ tên ảnh và thư mục lưu trữ
+            String imagePath = "" + File.separator + imageName;
+
+            // Đọc dữ liệu ảnh từ file
+            File imageFile = new File(imagePath);
+            byte[] imageData = new byte[(int) imageFile.length()];
+            FileInputStream fis = new FileInputStream(imageFile);
+            fis.read(imageData);
+            fis.close();
+
+            // Chuyển đổi dữ liệu ảnh thành đối tượng hình ảnh
+            ImageIcon imageIcon = new ImageIcon(imageData);
+            Image image = imageIcon.getImage();
+            Image scaledImage = image.getScaledInstance(hinhAnh.getWidth(), hinhAnh.getHeight(), Image.SCALE_SMOOTH);
+
+            // Đặt ảnh vào JLabel
+            hinhAnh.setIcon(new ImageIcon(scaledImage));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

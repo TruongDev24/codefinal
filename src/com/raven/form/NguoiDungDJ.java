@@ -94,7 +94,14 @@ public class NguoiDungDJ extends javax.swing.JDialog {
         // Thực hiện kiểm tra tính hợp lệ của số điện thoại
         // Bạn có thể sử dụng các biểu thức chính quy hoặc thư viện kiểm tra số điện thoại
         // Ở đây tôi sử dụng một phương thức đơn giản
-        return phoneNumber.matches("\\d{10}"); // Kiểm tra xem số điện thoại có 10 chữ số không
+        return phoneNumber.matches("0\\d{9}"); // Kiểm tra xem số điện thoại có 10 chữ số không
+    }
+    
+    private boolean isValidCCCD(String cccd) {
+        // Thực hiện kiểm tra tính hợp lệ của số điện thoại
+        // Bạn có thể sử dụng các biểu thức chính quy hoặc thư viện kiểm tra số điện thoại
+        // Ở đây tôi sử dụng một phương thức đơn giản
+        return cccd.matches("\\d{12}"); // Kiểm tra xem số điện thoại có 10 chữ số không
     }
 
     public void detail(int index) {
