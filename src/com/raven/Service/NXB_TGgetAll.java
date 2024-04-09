@@ -14,11 +14,11 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class NXBService {
+public class NXB_TGgetAll {
     private Connection conn = DBConnect.getConnection();
 
     public List<TacGia> getAllTG() {
-        String sql = "select * from TacGia";
+        String sql = "select * from TacGia where trang_thai <> N'Đã xóa'";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
             List<TacGia> vm = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
@@ -38,7 +38,7 @@ public class NXBService {
     }
     
     public List<TheLoai> getAllTL() {
-        String sql = "select * from TheLoai";
+        String sql = "select * from TheLoai where trang_thai <> N'Đã xóa'";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
             List<TheLoai> vm = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
@@ -58,7 +58,7 @@ public class NXBService {
     }
     
     public List<NXB> getAllNXB() {
-        String sql = "select * from NhaXuatBan";
+        String sql = "select * from NhaXuatBan where trang_thai <> N'Đã xóa'";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
             List<NXB> vm = new ArrayList<>();
             ResultSet rs = ps.executeQuery();

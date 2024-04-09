@@ -8,7 +8,7 @@ package com.raven.form;
 import com.raven.Model2.NXB;
 import com.raven.Model2.TacGia;
 import com.raven.Model2.TheLoai;
-import com.raven.Service.NXBService;
+import com.raven.Service.NXB_TGgetAll;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -25,7 +25,7 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
     private List<TacGia> listTG = new ArrayList<>();
     private List<TheLoai> listTL = new ArrayList<>();
     private List<NXB> listNXB = new ArrayList<>();
-    private final NXBService sv = new NXBService();
+    private final NXB_TGgetAll sv = new NXB_TGgetAll();
 
     /**
      * Creates new form Form_1
@@ -56,7 +56,7 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        themNXBbtn = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         panelBorder1 = new com.raven.swing.PanelBorder();
@@ -102,13 +102,13 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(18, 64, 118));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(249, 232, 151));
-        jButton3.setText("Thêm mới");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        themNXBbtn.setBackground(new java.awt.Color(18, 64, 118));
+        themNXBbtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        themNXBbtn.setForeground(new java.awt.Color(249, 232, 151));
+        themNXBbtn.setText("Thêm mới");
+        themNXBbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                themNXBbtnActionPerformed(evt);
             }
         });
 
@@ -178,7 +178,7 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
                 .addGap(43, 43, 43)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(themNXBbtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -204,7 +204,7 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1)
                             .addComponent(jButton2)
-                            .addComponent(jButton3))))
+                            .addComponent(themNXBbtn))))
                 .addContainerGap(621, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -487,9 +487,11 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void themNXBbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_themNXBbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        NXB_Dialog nxb = new NXB_Dialog(null, true);
+        nxb.setVisible(true);
+    }//GEN-LAST:event_themNXBbtnActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -530,7 +532,6 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -562,5 +563,6 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
     private com.raven.swing.Table tbNXB;
     private com.raven.swing.Table tbTG;
     private com.raven.swing.Table tbTL;
+    private javax.swing.JButton themNXBbtn;
     // End of variables declaration//GEN-END:variables
 }
