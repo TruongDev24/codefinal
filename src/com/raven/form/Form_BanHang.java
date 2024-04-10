@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,7 +11,7 @@ import com.raven.Service.BanHangService;
 import com.raven.Service.SachService;
 import com.raven.Service.khachHang_Service;
 import com.raven.auth.AuthSession;
-import com.raven.dialog.Quantity;
+import com.raven.dialog.FQuantity;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -24,43 +24,47 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author RAVEN
  */
 public class Form_BanHang extends javax.swing.JPanel {
+
     private final BanHangService banHangService = new BanHangService();
     private final SachService sachService = new SachService();
     private final khachHang_Service khachHangService = new khachHang_Service();
-
 
     /**
      * Creates new form Form_1
      */
     public Form_BanHang() {
         initComponents();
-         fillToTableHoaDon();
-         fillToTableSanPham();
-         fillToTableKhachHang();
-         lblTenNhanVien.setText(AuthSession.name);
+        fillToTableHoaDon();
+        fillToTableSanPham();
+        fillToTableKhachHang();
+        lblTenNhanVien.setText(AuthSession.name);
     }
-    void fillToTableHoaDon(){
-       DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
-         model.setRowCount(0);
-         banHangService.getAllOrder().forEach(hoaDonViewModel -> {
-             model.addRow(hoaDonViewModel.toArray());
-         });
+
+    void fillToTableHoaDon() {
+        DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
+        model.setRowCount(0);
+        banHangService.getAllOrder().forEach(hoaDonViewModel -> {
+            model.addRow(hoaDonViewModel.toArray());
+        });
     }
-    void fillToTableKhachHang(){
+
+    void fillToTableKhachHang() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) listKhachHang.getModel();
         model.removeAllElements();
         khachHangService.getAll_KH().forEach(khachHang -> {
             model.addElement(khachHang);
         });
     }
-    public void fillToTableSanPham(){
+
+    public void fillToTableSanPham() {
         DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
         sachService.getAll().forEach(sach -> {
             model.addRow(sach.toArray());
         });
     }
-    void fillToTableHoaDonChiTiet(int id){
+
+    void fillToTableHoaDonChiTiet(int id) {
         AtomicReference<Double> TongTien = new AtomicReference<>(0.0);
         DefaultTableModel model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
         model.setRowCount(0);
@@ -576,9 +580,9 @@ public class Form_BanHang extends javax.swing.JPanel {
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         try {
-             fillToTableHoaDonChiTiet((int) tblHoaDon.getValueAt(tblHoaDon.getSelectedRow(), 1));
+            fillToTableHoaDonChiTiet((int) tblHoaDon.getValueAt(tblHoaDon.getSelectedRow(), 1));
         } catch (RuntimeException e) {
-             fillToTableHoaDonChiTiet((int) tblHoaDon.getValueAt(tblHoaDon.getSelectedRow(), 1));
+            fillToTableHoaDonChiTiet((int) tblHoaDon.getValueAt(tblHoaDon.getSelectedRow(), 1));
         }
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
@@ -591,18 +595,18 @@ public class Form_BanHang extends javax.swing.JPanel {
 
     private void btnDeleteHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteHDActionPerformed
         try {
-            
-              int id = (int) tblHoaDon.getValueAt(tblHoaDon.getSelectedRow(), 1);
-        banHangService.getAllHoaDonChiTiet(id).forEach(hoaDonChiTietViewModel -> {
-            banHangService.updateQuantity(hoaDonChiTietViewModel.getId(), -hoaDonChiTietViewModel.getSoLuong());
-        });
-        banHangService.deleteOrder(id);
-        fillToTableHoaDon();
-        DefaultTableModel model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-        model.setRowCount(0);
-        lblMaHoaDon.setText("Chua Chon Hoa Don");
+
+            int id = (int) tblHoaDon.getValueAt(tblHoaDon.getSelectedRow(), 1);
+            banHangService.getAllHoaDonChiTiet(id).forEach(hoaDonChiTietViewModel -> {
+                banHangService.updateQuantity(hoaDonChiTietViewModel.getId(), -hoaDonChiTietViewModel.getSoLuong());
+            });
+            banHangService.deleteOrder(id);
+            fillToTableHoaDon();
+            DefaultTableModel model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
+            model.setRowCount(0);
+            lblMaHoaDon.setText("Chua Chon Hoa Don");
             lblTongTien.setText("0");
-        fillToTableSanPham();
+            fillToTableSanPham();
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -622,11 +626,11 @@ public class Form_BanHang extends javax.swing.JPanel {
 
     private void btnCapNhatSLHDCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatSLHDCTActionPerformed
         try {
-              Quantity dialog = new Quantity(this, true,
-                (int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 5),
-                (int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 2),
-                (int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 0));
-        dialog.setVisible(true);
+            FQuantity di = new FQuantity(this, true,
+                    (int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 5),
+                    (int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 2),
+                    (int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 0));
+            di.setVisible(true);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -635,10 +639,10 @@ public class Form_BanHang extends javax.swing.JPanel {
     private void btnXoaSPHDCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPHDCTActionPerformed
         try {
             banHangService.deleteChiTietHoaDon((int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 5));
-        fillToTableSanPham();
-        fillToTableHoaDonChiTiet((int) tblHoaDon.getValueAt(tblHoaDon.getSelectedRow(), 1));
+            fillToTableSanPham();
+            fillToTableHoaDonChiTiet((int) tblHoaDon.getValueAt(tblHoaDon.getSelectedRow(), 1));
         } catch (ArrayIndexOutOfBoundsException e) {
-                        JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage());
 
         }
 
@@ -647,20 +651,19 @@ public class Form_BanHang extends javax.swing.JPanel {
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {
 //GEN-FIRST:event_btnThanhToanActionPerformed
         try {
-             if (!lblTongTien.getText().equals("0.0")) {
-                 int idHD = Integer.parseInt(lblMaHoaDon.getText());
-                 banHangService.updateOrder(idHD, 1, Double.parseDouble(lblTongTien.getText()));
-                 DefaultTableModel model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-                 model.setRowCount(0);
-                 lblTongTien.setText("0");
-                 lblMaHoaDon.setText("Chua Co");
-                 fillToTableSanPham();
-                 fillToTableHoaDon();
-                 JOptionPane.showMessageDialog(this, "Thanh toán thành công");
-             }
-             else {
-                 JOptionPane.showMessageDialog(this, "Thanh toán thất bại");
-             }
+            if (!lblTongTien.getText().equals("0.0")) {
+                int idHD = Integer.parseInt(lblMaHoaDon.getText());
+                banHangService.updateOrder(idHD, 1, Double.parseDouble(lblTongTien.getText()));
+                DefaultTableModel model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
+                model.setRowCount(0);
+                lblTongTien.setText("0");
+                lblMaHoaDon.setText("Chua Co");
+                fillToTableSanPham();
+                fillToTableHoaDon();
+                JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+            } else {
+                JOptionPane.showMessageDialog(this, "Thanh toán thất bại");
+            }
 
         } catch (Exception | Error e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -669,13 +672,13 @@ public class Form_BanHang extends javax.swing.JPanel {
 
     private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
         try {
-             int idHoaDon =  Integer.parseInt(lblMaHoaDon.getText());
-        String idSanPham = (String) tblSanPham.getValueAt(tblSanPham.getSelectedRow(), 0);
-        banHangService.addProduct(idHoaDon,Integer.parseInt(idSanPham) , 1);
-        fillToTableSanPham();
+            int idHoaDon = Integer.parseInt(lblMaHoaDon.getText());
+            String idSanPham = (String) tblSanPham.getValueAt(tblSanPham.getSelectedRow(), 0);
+            banHangService.addProduct(idHoaDon, Integer.parseInt(idSanPham), 1);
+            fillToTableSanPham();
             fillToTableHoaDonChiTiet(idHoaDon);
         } catch (java.lang.NumberFormatException | java.lang.ArrayIndexOutOfBoundsException e) {
-                    JOptionPane.showMessageDialog(this, "Chon Hoa Don");
+            JOptionPane.showMessageDialog(this, "Chon Hoa Don");
         }
     }//GEN-LAST:event_btnAddProductActionPerformed
 

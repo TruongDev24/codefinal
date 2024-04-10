@@ -12,7 +12,7 @@ import com.raven.form.Form_BanHang;
  *
  * @author buidu
  */
-public class Quantity extends javax.swing.JDialog {
+public class FQuantity extends javax.swing.JDialog {
     private int idHoaDonChiTiet;
     private int soLuong;
     Form_BanHang parent;
@@ -22,7 +22,7 @@ public class Quantity extends javax.swing.JDialog {
     /**
      * Creates new form Quantity
      */
-    public Quantity(Form_BanHang parent, boolean modal, int idHoaDonChiTiet, int soLuong,int idSanPham) {
+    public FQuantity(Form_BanHang parent, boolean modal, int idHoaDonChiTiet, int soLuong,int idSanPham) {
         this.idHoaDonChiTiet = idHoaDonChiTiet;
         this.soLuong = soLuong;
         this.idSanPham = idSanPham;
