@@ -17,12 +17,14 @@ public class FQuantity extends javax.swing.JDialog {
     private int soLuong;
     Form_BanHang parent;
     private int idSanPham;
+    private int idHoaDon;
     private final BanHangService banHangService = new BanHangService();
 
     /**
      * Creates new form Quantity
      */
-    public FQuantity(Form_BanHang parent, boolean modal, int idHoaDonChiTiet, int soLuong,int idSanPham) {
+    public FQuantity(Form_BanHang parent, boolean modal, int idHoaDonChiTiet, int soLuong,int idSanPham, int idHoaHon) {
+        this.idHoaDon = idHoaHon;
         this.idHoaDonChiTiet = idHoaDonChiTiet;
         this.soLuong = soLuong;
         this.idSanPham = idSanPham;
@@ -105,6 +107,7 @@ public class FQuantity extends javax.swing.JDialog {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         banHangService.updateHoaDonChiTietQuantity(Integer.parseInt(lblID.getText()), Integer.parseInt(txtQuantity.getText()), idSanPham);
         parent.fillToTableSanPham();
+        parent.fillToTableHoaDonChiTiet(idHoaDon);
         this.dispose();
     }//GEN-LAST:event_btnUpdateActionPerformed
 

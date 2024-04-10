@@ -48,23 +48,23 @@ public class Form_BanHang extends javax.swing.JPanel {
         });
     }
 
-    void fillToTableKhachHang() {
+    void fillToTableKhachHang(){
         DefaultComboBoxModel model = (DefaultComboBoxModel) listKhachHang.getModel();
         model.removeAllElements();
-        khachHangService.getAll_KH().forEach(khachHang -> {
+        khachHangService.getAllByStatus("Active").forEach(khachHang -> {
             model.addElement(khachHang);
         });
     }
 
-    public void fillToTableSanPham() {
+    public void fillToTableSanPham(){
         DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
-        sachService.getAll().forEach(sach -> {
+        sachService.getAllByStatus("Hiện").forEach(sach -> {
             model.addRow(sach.toArray());
         });
     }
 
-    void fillToTableHoaDonChiTiet(int id) {
+    public void fillToTableHoaDonChiTiet(int id) {
         AtomicReference<Double> TongTien = new AtomicReference<>(0.0);
         DefaultTableModel model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
         model.setRowCount(0);
@@ -626,11 +626,13 @@ public class Form_BanHang extends javax.swing.JPanel {
 
     private void btnCapNhatSLHDCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatSLHDCTActionPerformed
         try {
-            FQuantity di = new FQuantity(this, true,
-                    (int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 5),
-                    (int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 2),
-                    (int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 0));
-            di.setVisible(true);
+              FQuantity di = new FQuantity(this, true,
+                (int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 5),
+                (int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 2),
+                (int) tblHoaDonChiTiet.getValueAt(tblHoaDonChiTiet.getSelectedRow(), 0),
+                Integer.parseInt(lblMaHoaDon.getText())
+              );
+        di.setVisible(true);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

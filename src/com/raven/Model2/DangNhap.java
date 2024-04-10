@@ -15,6 +15,7 @@ public class DangNhap {
     private String pass;
     private String role;
     private String hinhAnh;
+    private String status;
 
     public DangNhap() {
     }
@@ -27,7 +28,16 @@ public class DangNhap {
         this.id = id;
     }
 
-    public DangNhap(int id, String tenNV, String user, String pass, String role, String hinhAnh) {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public DangNhap(int id, String tenNV, String user, String pass, String role, String hinhAnh, String status) {
+        this.status = status;
         this.tenNV = tenNV;
         this.id = id;
         this.user = user;

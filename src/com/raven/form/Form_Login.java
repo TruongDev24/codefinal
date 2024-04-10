@@ -205,19 +205,24 @@ public class Form_Login extends javax.swing.JFrame {
         String pw = String.valueOf(passw.getPassword());
         DangNhap dn = authService.authenticate(user, pw);
         if (dn != null) {
-            AuthSession.uid = dn.getId();
-            AuthSession.name = dn.getTenNV();
-            Form_MyAccount form = new Form_MyAccount(null, true);
-            form.setTenNV(dn.getTenNV());
-            form.setRole(dn.getRole());
-            form.setHinhAnh(dn.getHinhAnh());
+          if (dn.getStatus().equalsIgnoreCase("active")){
+              AuthSession.uid = dn.getId();
+              AuthSession.name = dn.getTenNV();
+              Form_MyAccount form = new Form_MyAccount(null, true);
+              form.setTenNV(dn.getTenNV());
+              form.setRole(dn.getRole());
+              form.setHinhAnh(dn.getHinhAnh());
 
-            txtTB1.setText(null);
-            txtTB2.setText(null);
-            this.dispose();
-            Main m = new Main();
-            m.setVisible(true);
-            form.setVisible(true);
+              txtTB1.setText(null);
+              txtTB2.setText(null);
+              this.dispose();
+              Main m = new Main();
+              m.setVisible(true);
+              form.setVisible(true);
+          }
+          else {
+              JOptionPane.showMessageDialog(this, "Tài khoản đã bị khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+          }
         } else {
             JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }

@@ -16,7 +16,15 @@ public class AuthService {
                 ps.setObject(2, password);
                 var rs = ps.executeQuery();
                 if (rs.next()) {
-                    return new DangNhap(rs.getInt("id"), rs.getString("ten_nv"), rs.getString("username"), rs.getString("password"), rs.getString("vai_tro"), rs.getString("hinh_anh"));
+                    return new DangNhap(
+                            rs.getInt("id"),
+                            rs.getString("ten_nv"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getString("vai_tro"),
+                            rs.getString("hinh_anh"),
+                            rs.getString("trang_thai")
+                    );
                 } else {
                     return null;
                 }
