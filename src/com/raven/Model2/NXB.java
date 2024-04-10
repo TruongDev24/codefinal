@@ -9,7 +9,7 @@ package com.raven.Model2;
  * @author LENOVO
  */
 public class NXB {
-    private String id;
+    private Integer id;
     private String ten;
     private String moTa;
     private String trangThai;
@@ -17,18 +17,18 @@ public class NXB {
     public NXB() {
     }
 
-    public NXB(String id, String ten, String moTa, String trangThai) {
+    public NXB(Integer id, String ten, String moTa, String trangThai) {
         this.id = id;
         this.ten = ten;
         this.moTa = moTa;
         this.trangThai = trangThai;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

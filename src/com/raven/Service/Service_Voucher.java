@@ -55,7 +55,7 @@ public class Service_Voucher {
             ps.setObject(2, voucher.getNgay_bd());
             ps.setObject(3, voucher.getNgay_kt());
             ps.setObject(4, voucher.getTien_giam());
-            ps.setObject(5, "Chưa bắt đầu");
+            ps.setObject(5, "Chưa diễn ra");
 
             ps.executeUpdate();
             return true;

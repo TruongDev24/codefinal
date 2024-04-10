@@ -8,9 +8,9 @@ package com.raven.Model2;
  *
  * @author PC
  */
-public class khachHang {
+    public class khachHang {
 
-    String id;
+    int id;
     String ten_khach;
     String sdt;
     String ngay_them;
@@ -20,7 +20,7 @@ public class khachHang {
     public khachHang() {
     }
 
-    public khachHang(String id, String ten_khach, String sdt, String ngay_them, int gioi_tinh, String trang_thai) {
+    public khachHang(int id, String ten_khach, String sdt, String ngay_them, int gioi_tinh, String trang_thai) {
         this.id = id;
         this.ten_khach = ten_khach;
         this.sdt = sdt;
@@ -37,17 +37,11 @@ public class khachHang {
         this.trang_thai = trang_thai;
     }
 
-    public khachHang(String id, String ten_khach, String sdt) {
-        this.id = id;
-        this.ten_khach = ten_khach;
-        this.sdt = sdt;
-    }
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -95,5 +89,5 @@ public class khachHang {
     public String toString() {
         return ten_khach;
     }
-
+    
 }

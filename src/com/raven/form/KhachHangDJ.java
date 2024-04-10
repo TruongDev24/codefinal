@@ -21,14 +21,14 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class KhachHangDJ extends javax.swing.JDialog {
-
+    
     public enum ActionType {
         ADD, EDIT
     }
     private ActionType actionType;
     private khachHang_Service kh = new khachHang_Service();
     private List<khachHang> list = kh.getAll_KH();
-
+    
     public KhachHangDJ(java.awt.Frame parent, boolean modal, ActionType actionType) {
         super(parent, modal);
         initComponents();
@@ -38,7 +38,7 @@ public class KhachHangDJ extends javax.swing.JDialog {
             lbName.setText("Sửa khách hàng");
         }
     }
-
+    
     private boolean validateFields() {
         if (txtTen.getText().isEmpty() || txtSDT.getText().isEmpty() || txtNgay.getDate() == null
                 || (!rdo1.isSelected() && !rdo2.isSelected()) || cbxTrangThai.getSelectedItem() == null) {
@@ -52,11 +52,11 @@ public class KhachHangDJ extends javax.swing.JDialog {
         }
         return true;
     }
-
+    
     private boolean isValidPhoneNumber(String phoneNumber) {
         return phoneNumber.matches("\\d{10}");
     }
-
+    
     private int parseGenderToInt(String genderString) {
         if (genderString.equalsIgnoreCase("Nam")) {
             return 1;
@@ -66,11 +66,11 @@ public class KhachHangDJ extends javax.swing.JDialog {
             return -1;
         }
     }
-
+    
     public void detail(int index) {
         try {
             khachHang kh = list.get(index);
-            txtID.setText(kh.getId());
+            txtID.setText(String.valueOf(kh.getId()));
             txtTen.setText(kh.getTen_khach());
             txtSDT.setText(kh.getSdt());
             txtNgay.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(kh.getNgay_them()));
@@ -140,7 +140,7 @@ public class KhachHangDJ extends javax.swing.JDialog {
         buttonGroup1.add(rdo2);
         rdo2.setText("Nữ");
 
-        cbxTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Inactive", " " }));
+        cbxTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Inactive" }));
 
         btnThem.setText("Submit");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -168,21 +168,24 @@ public class KhachHangDJ extends javax.swing.JDialog {
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtTen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                    .addComponent(txtSDT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                    .addComponent(txtNgay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(rdo1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rdo2))
-                                    .addComponent(cbxTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(rdo1)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(rdo2))
+                                            .addComponent(cbxTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 216, Short.MAX_VALUE))
+                                    .addComponent(txtID)
+                                    .addComponent(txtTen)
+                                    .addComponent(txtSDT)
+                                    .addComponent(txtNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(121, 121, 121)
                                 .addComponent(lbName)))
-                        .addGap(0, 125, Short.MAX_VALUE))
+                        .addGap(39, 39, 39))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnClear)
@@ -271,7 +274,7 @@ public class KhachHangDJ extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Thêm mới khách hàng thất bại.");
             }
         } else if (actionType == ActionType.EDIT) {
-            String id=txtID.getText();
+            Integer id = Integer.parseInt(txtID.getText());
             String tenKH = txtTen.getText();
             String sdt = txtSDT.getText();
             Date ngay = txtNgay.getDate();

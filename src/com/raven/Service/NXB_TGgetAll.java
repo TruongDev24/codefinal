@@ -64,7 +64,7 @@ public class NXB_TGgetAll {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 NXB vcm = new NXB(
-                        rs.getString(1),
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4));

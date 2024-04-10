@@ -25,7 +25,7 @@ public class SachBanChaySV {
                 + "       TL.ten_theloai AS the_loai,\n"
                 + "       SUM(CTHD.so_luong) AS so_luong_ban_ra\n"
                 + "FROM ChiTietHoaDon CTHD\n"
-                + "INNER JOIN ChiTietSach CS ON CTHD.id_sachct = CS.id\n"
+                + "INNER JOIN ChiTietSach CS ON CTHD.id_sachct = CS.id_sach\n"
                 + "INNER JOIN Sach S ON CS.id_sach = S.id\n"
                 + "INNER JOIN TacGia TG ON CS.id_tacgia = TG.id\n"
                 + "INNER JOIN TheLoai TL ON CS.id_theloai = TL.id\n"

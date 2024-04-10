@@ -9,6 +9,7 @@ package com.raven.Model2;
  * @author LENOVO
  */
 public class DangNhap {
+    private int id;
     private String tenNV;
     private String user;
     private String pass;
@@ -18,8 +19,17 @@ public class DangNhap {
     public DangNhap() {
     }
 
-    public DangNhap(String tenNV, String user, String pass, String role, String hinhAnh) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public DangNhap(int id, String tenNV, String user, String pass, String role, String hinhAnh) {
         this.tenNV = tenNV;
+        this.id = id;
         this.user = user;
         this.pass = pass;
         this.role = role;

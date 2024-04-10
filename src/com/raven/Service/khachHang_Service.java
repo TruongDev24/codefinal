@@ -27,7 +27,7 @@ public class khachHang_Service {
             List<khachHang> ppp = new ArrayList<>();
             while (rs.next()) {
                 khachHang kh = new khachHang(
-                        rs.getString(1),
+                        rs.getInt(1),
                         rs.getString(2), 
                         rs.getString(3), 
                         rs.getString(4),
@@ -106,7 +106,7 @@ public class khachHang_Service {
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             khachHang kh = new khachHang(
-                    rs.getString("id"),
+                    rs.getInt("id"),
                     rs.getString("ten_khach"),
                     rs.getString("sdt"),
                     rs.getString("ngay_them"),

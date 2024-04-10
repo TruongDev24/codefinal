@@ -24,13 +24,7 @@ public class dangNhapService {
             List<DangNhap> vm = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                DangNhap vcm = new DangNhap(
-                        rs.getString(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5));
-                vm.add(vcm);
+               DangNhap dangNhap =new DangNhap();
             }
             return vm;
         } catch (SQLException e) {

@@ -138,5 +138,7 @@ public class Sach {
         this.trangThai = trangThai;
     }
 
-    
+    public Object[] toArray(){
+        return new Object[]{id,tenSach,soTrang,giaBan,soLuong,ngayThem,nxb,tacGia,theLoai,hinhAnh,moTa,trangThai};
+    }
 }

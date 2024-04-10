@@ -226,7 +226,7 @@ public class ChiTietVoucher extends javax.swing.JDialog {
             Date nbd = ngaybd.getDate();
             Date nkt = ngaykt.getDate();
             String money = txtTien.getText();
-            String status = "Chưa bắt đầu";
+            String status = "Chưa diễn ra";
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String ngaybatdau = sdf.format(nbd);
@@ -253,7 +253,7 @@ public class ChiTietVoucher extends javax.swing.JDialog {
             Date nbd = ngaybd.getDate();
             Date nkt = ngaykt.getDate();
             String money = txtTien.getText();
-            String status = "Chưa bắt đầu";
+            String status = "Chưa diễn ra";
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String ngaybatdau = sdf.format(nbd);

@@ -4,19 +4,37 @@
  */
 package com.raven.form;
 
+import com.raven.Model2.NXB;
+import com.raven.Service.NXBSV;
+import com.raven.Service.NXB_TGgetAll;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author LENOVO
  */
 public class NXB_Dialog extends javax.swing.JDialog {
 
+    public enum ActionType {
+        ADD, EDIT
+    }
+    private ActionType actionType;
+    private NXB_TGgetAll sv = new NXB_TGgetAll();
+    private List<NXB> list = sv.getAllNXB();
+    private NXBSV nxbsv = new NXBSV();
+
     /**
      * Creates new form NXB_Dialog
      */
-    public NXB_Dialog(java.awt.Frame parent, boolean modal) {
+    public NXB_Dialog(java.awt.Frame parent, boolean modal, ActionType actionType) {
         super(parent, modal);
         initComponents();
+        this.actionType = actionType;
         this.setLocationRelativeTo(null);
+        if (actionType == ActionType.EDIT) {
+            lblname.setText("Sửa nhà xuất bản");
+        }
     }
 
     /**
@@ -29,44 +47,55 @@ public class NXB_Dialog extends javax.swing.JDialog {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
+        lblname = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTen = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        txtMoTa = new javax.swing.JTextArea();
+        Rdo1 = new javax.swing.JRadioButton();
+        Rdo2 = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
+        luuBtn = new javax.swing.JButton();
+
+        txtID.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Thêm mới nhà xuất bản");
+        lblname.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblname.setText("Thêm mới nhà xuất bản");
 
         jLabel2.setText("Tên nhà xuất bản");
 
         jLabel3.setText("Mô tả");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtMoTa.setColumns(20);
+        txtMoTa.setRows(5);
+        jScrollPane1.setViewportView(txtMoTa);
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Hoạt động");
+        buttonGroup1.add(Rdo1);
+        Rdo1.setSelected(true);
+        Rdo1.setText("Hoạt động");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Ngừng hoạt động");
+        buttonGroup1.add(Rdo2);
+        Rdo2.setText("Ngừng hoạt động");
 
         jLabel4.setText("Trạng thái");
+
+        luuBtn.setText("Lưu");
+        luuBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                luuBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,36 +105,115 @@ public class NXB_Dialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(Rdo1)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
+                        .addComponent(Rdo2))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addComponent(txtTen)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+                    .addComponent(luuBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblname, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
+                    .addComponent(Rdo1)
+                    .addComponent(Rdo2)
                     .addComponent(jLabel4))
-                .addGap(0, 25, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(luuBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void luuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_luuBtnActionPerformed
+        // TODO add your handling code here:
+        if (actionType == ActionType.ADD) {
+            Integer ma = 0;
+            String ten = txtTen.getText();
+            String moTa = txtMoTa.getText();
+            String status = new String();
+            if (Rdo1.isSelected()) {
+                status = "Hoạt động";
+            } else if (Rdo2.isSelected()) {
+                status = "Ngừng hoạt động";
+            }
+
+            NXB nxb = new NXB(ma, ten, moTa, status);
+            boolean addNXB = nxbsv.add(nxb);
+            if (addNXB) {
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+            }
+        } else if (actionType == ActionType.EDIT) {
+            Integer ma = Integer.parseInt(txtID.getText());
+            String ten = txtTen.getText();
+            String moTa = txtMoTa.getText();
+            String status = "";
+            if (Rdo1.isSelected()) {
+                status = "Hoạt động";
+            } else if (Rdo2.isSelected()) {
+                status = "Ngừng hoạt động";
+            }
+
+            NXB nxb = new NXB(ma, ten, moTa, status);
+            boolean addNXB = nxbsv.update(nxb);
+            if (addNXB) {
+                JOptionPane.showMessageDialog(this, "Sửa thành công");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+            }
+        }
+    }//GEN-LAST:event_luuBtnActionPerformed
+
+    public void delete() {
+        Integer ma = Integer.parseInt(txtID.getText());
+        String ten = txtTen.getText();
+        String moTa = txtMoTa.getText();
+        String status = new String();
+        if (Rdo1.isSelected()) {
+            status = "Hoạt động";
+        } else if (Rdo2.isSelected()) {
+            status = "Ngừng hoạt động";
+        }
+
+        NXB nxb = new NXB(ma, ten, moTa, status);
+        boolean addNXB = nxbsv.delete(nxb);
+        if (addNXB) {
+            JOptionPane.showMessageDialog(this, "Xóa thành công");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa thất bại");
+        }
+    }
+
+    public void detail(int index) {
+        NXB n = list.get(index);
+        txtID.setText(String.valueOf(n.getId()));
+        txtTen.setText(n.getTen());
+        txtMoTa.setText(n.getMoTa());
+        if (n.getTrangThai().equals("Hoạt động")) {
+            Rdo1.setSelected(true);
+        } else if (n.getTrangThai().equals("Ngừng hoạt động")) {
+            Rdo2.setSelected(true);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -137,7 +245,7 @@ public class NXB_Dialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                NXB_Dialog dialog = new NXB_Dialog(new javax.swing.JFrame(), true);
+                NXB_Dialog dialog = new NXB_Dialog(new javax.swing.JFrame(), true, ActionType.ADD);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -150,15 +258,17 @@ public class NXB_Dialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton Rdo1;
+    private javax.swing.JRadioButton Rdo2;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblname;
+    private javax.swing.JButton luuBtn;
+    private javax.swing.JTextField txtID;
+    private javax.swing.JTextArea txtMoTa;
+    private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
 }

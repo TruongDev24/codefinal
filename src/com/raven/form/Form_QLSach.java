@@ -9,6 +9,7 @@ import com.raven.Model2.Sach;
 import com.raven.Service.SachService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,9 +42,9 @@ public class Form_QLSach extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        xoaBtn = new javax.swing.JButton();
+        suaBtn = new javax.swing.JButton();
+        themBtn = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         panelBorder1 = new com.raven.swing.PanelBorder();
@@ -51,25 +52,35 @@ public class Form_QLSach extends javax.swing.JPanel {
         spTable = new javax.swing.JScrollPane();
         SachTB = new com.raven.swing.Table();
         jLabel1 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        nhapHangbtn = new javax.swing.JButton();
 
-        jButton1.setBackground(new java.awt.Color(18, 64, 118));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(249, 232, 151));
-        jButton1.setText("Xóa");
-
-        jButton2.setBackground(new java.awt.Color(18, 64, 118));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(249, 232, 151));
-        jButton2.setText("Sửa");
-
-        jButton3.setBackground(new java.awt.Color(18, 64, 118));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(249, 232, 151));
-        jButton3.setText("Thêm mới");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        xoaBtn.setBackground(new java.awt.Color(18, 64, 118));
+        xoaBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        xoaBtn.setForeground(new java.awt.Color(249, 232, 151));
+        xoaBtn.setText("Xóa");
+        xoaBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                xoaBtnActionPerformed(evt);
+            }
+        });
+
+        suaBtn.setBackground(new java.awt.Color(18, 64, 118));
+        suaBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        suaBtn.setForeground(new java.awt.Color(249, 232, 151));
+        suaBtn.setText("Sửa");
+        suaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suaBtnActionPerformed(evt);
+            }
+        });
+
+        themBtn.setBackground(new java.awt.Color(18, 64, 118));
+        themBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        themBtn.setForeground(new java.awt.Color(249, 232, 151));
+        themBtn.setText("Thêm mới");
+        themBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                themBtnActionPerformed(evt);
             }
         });
 
@@ -127,13 +138,13 @@ public class Form_QLSach extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/search.png"))); // NOI18N
 
-        jButton4.setBackground(new java.awt.Color(18, 64, 118));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(249, 232, 151));
-        jButton4.setText("Nhập hàng");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        nhapHangbtn.setBackground(new java.awt.Color(18, 64, 118));
+        nhapHangbtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nhapHangbtn.setForeground(new java.awt.Color(249, 232, 151));
+        nhapHangbtn.setText("Nhập hàng");
+        nhapHangbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                nhapHangbtnActionPerformed(evt);
             }
         });
 
@@ -149,13 +160,13 @@ public class Form_QLSach extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(nhapHangbtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(themBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(suaBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(xoaBtn)
                 .addGap(27, 27, 27))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -174,10 +185,10 @@ public class Form_QLSach extends javax.swing.JPanel {
                         .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4)
+                            .addComponent(xoaBtn)
+                            .addComponent(suaBtn)
+                            .addComponent(themBtn)
+                            .addComponent(nhapHangbtn)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(652, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,13 +210,51 @@ public class Form_QLSach extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void themBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_themBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        Sach_Dialog s = new Sach_Dialog(null, true, Sach_Dialog.ActionType.ADD);
+        s.setVisible(true);
+        list = sv.getAll();
+        showData(list);
+    }//GEN-LAST:event_themBtnActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void nhapHangbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhapHangbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        nhapHang_Dialog nh = new nhapHang_Dialog(null, true);
+        nh.setVisible(true);
+    }//GEN-LAST:event_nhapHangbtnActionPerformed
+
+    private void suaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suaBtnActionPerformed
+        // TODO add your handling code here:
+        int row = SachTB.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một hàng để sửa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Sach_Dialog s = new Sach_Dialog(null, true, Sach_Dialog.ActionType.EDIT);
+        s.detail(row);
+        s.setVisible(true);
+        list = sv.getAll();
+        showData(list);
+    }//GEN-LAST:event_suaBtnActionPerformed
+
+    private void xoaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xoaBtnActionPerformed
+        // TODO add your handling code here:
+        int row = SachTB.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một hàng để xóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (choice != JOptionPane.YES_OPTION) {
+            return; // Nếu người dùng không đồng ý xóa, thoát khỏi phương thức
+        }
+        Sach_Dialog s = new Sach_Dialog(null, true, Sach_Dialog.ActionType.EDIT);
+        s.detail(row);
+        s.delete();
+        list = sv.getAll();
+        showData(list);
+    }//GEN-LAST:event_xoaBtnActionPerformed
 
     public void showData(List<Sach> listVC) {
         dtm.setRowCount(0);
@@ -215,16 +264,16 @@ public class Form_QLSach extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.raven.swing.Table SachTB;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton nhapHangbtn;
     private com.raven.swing.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;
+    private javax.swing.JButton suaBtn;
+    private javax.swing.JButton themBtn;
+    private javax.swing.JButton xoaBtn;
     // End of variables declaration//GEN-END:variables
 }

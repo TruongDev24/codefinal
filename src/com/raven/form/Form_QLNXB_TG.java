@@ -9,8 +9,10 @@ import com.raven.Model2.NXB;
 import com.raven.Model2.TacGia;
 import com.raven.Model2.TheLoai;
 import com.raven.Service.NXB_TGgetAll;
+import com.raven.form.NXB_Dialog.ActionType;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -54,8 +56,8 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        xoaNXBbtn = new javax.swing.JButton();
+        suaNXBbtn = new javax.swing.JButton();
         themNXBbtn = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
@@ -87,18 +89,23 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
         tbTL = new com.raven.swing.Table();
         jLabel12 = new javax.swing.JLabel();
 
-        jButton1.setBackground(new java.awt.Color(18, 64, 118));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(249, 232, 151));
-        jButton1.setText("Xóa");
-
-        jButton2.setBackground(new java.awt.Color(18, 64, 118));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(249, 232, 151));
-        jButton2.setText("Sửa");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        xoaNXBbtn.setBackground(new java.awt.Color(18, 64, 118));
+        xoaNXBbtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        xoaNXBbtn.setForeground(new java.awt.Color(249, 232, 151));
+        xoaNXBbtn.setText("Xóa");
+        xoaNXBbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                xoaNXBbtnActionPerformed(evt);
+            }
+        });
+
+        suaNXBbtn.setBackground(new java.awt.Color(18, 64, 118));
+        suaNXBbtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        suaNXBbtn.setForeground(new java.awt.Color(249, 232, 151));
+        suaNXBbtn.setText("Sửa");
+        suaNXBbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suaNXBbtnActionPerformed(evt);
             }
         });
 
@@ -180,9 +187,9 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
                 .addComponent(themNXBbtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(suaNXBbtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(xoaNXBbtn)
                 .addGap(27, 27, 27))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -202,8 +209,8 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
+                            .addComponent(xoaNXBbtn)
+                            .addComponent(suaNXBbtn)
                             .addComponent(themNXBbtn))))
                 .addContainerGap(621, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -483,14 +490,26 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void suaNXBbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suaNXBbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        int row = tbNXB.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một hàng để sửa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        NXB_Dialog nxb = new NXB_Dialog(null, true, ActionType.EDIT);
+        nxb.detail(row);
+        nxb.setVisible(true);
+        listNXB = sv.getAllNXB();
+        showData3(listNXB);
+    }//GEN-LAST:event_suaNXBbtnActionPerformed
 
     private void themNXBbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_themNXBbtnActionPerformed
         // TODO add your handling code here:
-        NXB_Dialog nxb = new NXB_Dialog(null, true);
+        NXB_Dialog nxb = new NXB_Dialog(null, true, ActionType.ADD);
         nxb.setVisible(true);
+        listNXB = sv.getAllNXB();
+        showData3(listNXB);
     }//GEN-LAST:event_themNXBbtnActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -509,20 +528,38 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void xoaNXBbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xoaNXBbtnActionPerformed
+        // TODO add your handling code here:
+        int row = tbNXB.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một hàng để xóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (choice != JOptionPane.YES_OPTION) {
+            return; // Nếu người dùng không đồng ý xóa, thoát khỏi phương thức
+        }
+        NXB_Dialog nxb = new NXB_Dialog(null, true, ActionType.EDIT);
+        nxb.detail(row);
+        nxb.delete();
+        listNXB = sv.getAllNXB();
+        showData3(listNXB);
+    }//GEN-LAST:event_xoaNXBbtnActionPerformed
+
     public void showData1(List<TacGia> listVC) {
         dtm1.setRowCount(0);
         listVC.forEach(c -> dtm1.addRow(new Object[]{
             c.getId(), c.getTen(), c.getMoTa(), c.getTrangThai()
         }));
     }
-    
+
     public void showData2(List<TheLoai> listVC) {
         dtm2.setRowCount(0);
         listVC.forEach(c -> dtm2.addRow(new Object[]{
             c.getId(), c.getTen(), c.getMoTa(), c.getTrangThai()
         }));
     }
-    
+
     public void showData3(List<NXB> listVC) {
         dtm3.setRowCount(0);
         listVC.forEach(c -> dtm3.addRow(new Object[]{
@@ -530,8 +567,6 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
         }));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -560,9 +595,11 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
     private javax.swing.JScrollPane spTable;
     private javax.swing.JScrollPane spTable1;
     private javax.swing.JScrollPane spTable2;
+    private javax.swing.JButton suaNXBbtn;
     private com.raven.swing.Table tbNXB;
     private com.raven.swing.Table tbTG;
     private com.raven.swing.Table tbTL;
     private javax.swing.JButton themNXBbtn;
+    private javax.swing.JButton xoaNXBbtn;
     // End of variables declaration//GEN-END:variables
 }
