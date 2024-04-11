@@ -18,6 +18,17 @@ BEGIN
     AND [trang_thai] = N'Đang diễn ra';
 END
 
+CREATE PROCEDURE UpdateStatusWhenQuantity
+AS
+BEGIN
+    UPDATE [dbo].[ChiTietSach]
+    SET [trang_thai] = CASE 
+                            WHEN [so_luong] > 0 THEN N'Hiện'
+                            ELSE N'Ẩn'
+                        END;
+END;
+
+
 -- Chèn dữ liệu vào bảng Sach
 INSERT INTO [dbo].[Sach] ([so_trang], [ten_sach])
 VALUES (300, N'Tiếng Chim Hót Trong Bụi Mận Gai'),
@@ -216,6 +227,7 @@ VALUES
 -- Chèn dữ liệu vào bảng KhachHang
 INSERT INTO [dbo].[KhachHang] ([ten_khach], [sdt], [ngay_them], [gioi_tinh], [trang_thai])
 VALUES 
+    (N'Khách lẻ', '0', GETDATE(), 1, N'Active'),
     (N'Trần Văn C', '0987654322', GETDATE(), 1, N'Active'),
     (N'Nguyễn Thị D', '0123456788', GETDATE(), 0, N'Inactive'),
     (N'Phạm Văn E', '0987654323', GETDATE(), 1, N'Active'),
