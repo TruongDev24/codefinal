@@ -8,6 +8,8 @@ package com.raven.form;
 import com.raven.Model2.Sach;
 import com.raven.Service.SachService;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -45,8 +47,8 @@ public class Form_QLSach extends javax.swing.JPanel {
         xoaBtn = new javax.swing.JButton();
         suaBtn = new javax.swing.JButton();
         themBtn = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        Sort = new javax.swing.JComboBox<>();
+        searchbar = new javax.swing.JTextField();
         panelBorder1 = new com.raven.swing.PanelBorder();
         jLabel2 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
@@ -84,9 +86,19 @@ public class Form_QLSach extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Sort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Tên sách A-Z", "Số lượng tăng dần", "Giá sách tăng dần", "Sách ẩn" }));
+        Sort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SortActionPerformed(evt);
+            }
+        });
 
-        jTextField1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        searchbar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        searchbar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchbarKeyReleased(evt);
+            }
+        });
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -156,9 +168,9 @@ public class Form_QLSach extends javax.swing.JPanel {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Sort, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
                 .addComponent(nhapHangbtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,12 +196,12 @@ public class Form_QLSach extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(xoaBtn)
                             .addComponent(suaBtn)
                             .addComponent(themBtn)
                             .addComponent(nhapHangbtn)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(Sort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(652, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -220,8 +232,16 @@ public class Form_QLSach extends javax.swing.JPanel {
 
     private void nhapHangbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhapHangbtnActionPerformed
         // TODO add your handling code here:
+        int row = SachTB.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn sách để nhập hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         nhapHang_Dialog nh = new nhapHang_Dialog(null, true);
+        nh.detail(row);
         nh.setVisible(true);
+        list = sv.getAll();
+        showData(list);
     }//GEN-LAST:event_nhapHangbtnActionPerformed
 
     private void suaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suaBtnActionPerformed
@@ -256,6 +276,90 @@ public class Form_QLSach extends javax.swing.JPanel {
         showData(list);
     }//GEN-LAST:event_xoaBtnActionPerformed
 
+    private void searchbarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchbarKeyReleased
+        // TODO add your handling code here:
+        String searchText = searchbar.getText().trim().toLowerCase(); // Lấy văn bản từ ô tìm kiếm và chuẩn hóa nó
+
+        DefaultTableModel model = (DefaultTableModel) SachTB.getModel(); // Lấy mô hình bảng hiện tại
+
+        // Xóa tất cả các hàng khỏi bảng
+        model.setRowCount(0);
+
+        // Lặp qua tất cả các hàng trong dữ liệu ban đầu và thêm các hàng phù hợp vào bảng mới
+        for (Sach sach : list) {
+            if (sach.getTenSach().toLowerCase().contains(searchText)
+                    || sach.getTacGia().toLowerCase().contains(searchText)
+                    || sach.getTheLoai().toLowerCase().contains(searchText)
+                    || sach.getTrangThai().toLowerCase().contains(searchText)
+                    || sach.getGiaBan().toLowerCase().contains(searchText)
+                    || sach.getSoLuong().toLowerCase().contains(searchText)
+                    || sach.getSoTrang().toLowerCase().contains(searchText)
+                    || sach.getId().toLowerCase().contains(searchText)) {
+                model.addRow(new Object[]{
+                    sach.getId(), sach.getTenSach(), sach.getSoLuong(), sach.getGiaBan(), sach.getTacGia(), sach.getTheLoai(), sach.getTrangThai()
+                });
+            }
+        }
+    }//GEN-LAST:event_searchbarKeyReleased
+
+    private void SortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SortActionPerformed
+        // TODO add your handling code here:
+        if (Sort.getSelectedItem().equals("Tên sách A-Z")) {
+            sortByTenSachAZ();
+        } else if (Sort.getSelectedItem().equals("Giá sách tăng dần")) {
+            sortByGiaSachTangDan();
+        } else if (Sort.getSelectedItem().equals("Số lượng tăng dần")) {
+            sortBySoLuongTangDan();
+        } else if (Sort.getSelectedItem().equals("Sách ẩn")) {
+            hienThiSachAn();
+        } else if (Sort.getSelectedItem().equals(" ")) {
+            list = sv.getAll();
+            showData(list);
+        }
+    }//GEN-LAST:event_SortActionPerformed
+
+    private void hienThiSachAn() {
+        List<Sach> sachAnList = new ArrayList<>();
+        for (Sach sach : list) {
+            if (sach.getTrangThai().equals("Ẩn")) {
+                sachAnList.add(sach);
+            }
+        }
+        showData(sachAnList);
+    }
+
+    private void sortBySoLuongTangDan() {
+        Comparator<Sach> sachComparator = new Comparator<Sach>() {
+            @Override
+            public int compare(Sach sach1, Sach sach2) {
+                int soLuong1 = Integer.parseInt(sach1.getSoLuong());
+                int soLuong2 = Integer.parseInt(sach2.getSoLuong());
+                return Integer.compare(soLuong1, soLuong2);
+            }
+        };
+        Collections.sort(list, sachComparator);
+        showData(list);
+    }
+
+    private void sortByGiaSachTangDan() {
+        Comparator<Sach> sachComparator = new Comparator<Sach>() {
+            @Override
+            public int compare(Sach sach1, Sach sach2) {
+                double giaBan1 = Double.parseDouble(sach1.getGiaBan());
+                double giaBan2 = Double.parseDouble(sach2.getGiaBan());
+                return Double.compare(giaBan1, giaBan2);
+            }
+        };
+        Collections.sort(list, sachComparator);
+        showData(list);
+    }
+
+    private void sortByTenSachAZ() {
+        Comparator<Sach> sachComparator = Comparator.comparing(Sach::getTenSach);
+        Collections.sort(list, sachComparator);
+        showData(list);
+    }
+
     public void showData(List<Sach> listVC) {
         dtm.setRowCount(0);
         listVC.forEach(c -> dtm.addRow(new Object[]{
@@ -264,13 +368,13 @@ public class Form_QLSach extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.raven.swing.Table SachTB;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> Sort;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton nhapHangbtn;
     private com.raven.swing.PanelBorder panelBorder1;
+    private javax.swing.JTextField searchbar;
     private javax.swing.JScrollPane spTable;
     private javax.swing.JButton suaBtn;
     private javax.swing.JButton themBtn;

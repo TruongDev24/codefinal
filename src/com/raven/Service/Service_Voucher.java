@@ -94,4 +94,26 @@ public class Service_Voucher {
             return false;
         }
     }
+    
+    public VCmodel getAvailableVoucher(int id) {
+        String sql = "Select top 1 * from Voucher where ngay_batdau <= ? and ngay_ketThuc >= ? and id = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setObject(1, LocalDateTime.now());
+            ps.setObject(2, LocalDateTime.now());
+            ps.setObject(3, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new VCmodel(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

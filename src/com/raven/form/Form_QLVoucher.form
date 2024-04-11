@@ -64,22 +64,17 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="searchBar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cbxSort" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="xoaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="suaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="ThemBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="load" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" pref="25" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jLabel1" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="searchBar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbxSort" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="xoaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="suaBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ThemBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="load" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="652" max="32767" attributes="0"/>
