@@ -6,6 +6,7 @@ package com.raven.dialog;
 
 import com.raven.Service.BanHangService;
 import com.raven.form.Form_BanHang;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -105,10 +106,15 @@ public class FQuantity extends javax.swing.JDialog {
     }//GEN-LAST:event_txtQuantityActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        banHangService.updateHoaDonChiTietQuantity(Integer.parseInt(lblID.getText()), Integer.parseInt(txtQuantity.getText()), idSanPham);
-        parent.fillToTableSanPham();
-        parent.fillToTableHoaDonChiTiet(idHoaDon);
-        this.dispose();
+        try {
+            banHangService.updateHoaDonChiTietQuantity(Integer.parseInt(lblID.getText()), Integer.parseInt(txtQuantity.getText()), idSanPham);
+            parent.fillToTableSanPham();
+            parent.fillToTableHoaDonChiTiet(idHoaDon);
+            this.dispose();
+        }
+        catch (RuntimeException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**

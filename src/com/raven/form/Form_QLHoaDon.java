@@ -34,7 +34,7 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
         panelBorder1 = new com.raven.swing.PanelBorder();
         jLabel2 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
-        table = new com.raven.swing.Table();
+        tbHoaDon = new com.raven.swing.Table();
         jLabel1 = new javax.swing.JLabel();
 
         jButton1.setBackground(new java.awt.Color(18, 64, 118));
@@ -54,7 +54,7 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
 
         spTable.setBorder(null);
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        tbHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -70,9 +70,9 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        table.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        table.getTableHeader().setReorderingAllowed(false);
-        spTable.setViewportView(table);
+        tbHoaDon.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        tbHoaDon.getTableHeader().setReorderingAllowed(false);
+        spTable.setViewportView(tbHoaDon);
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -166,6 +166,6 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField1;
     private com.raven.swing.PanelBorder panelBorder1;
     private javax.swing.JScrollPane spTable;
-    private com.raven.swing.Table table;
+    private com.raven.swing.Table tbHoaDon;
     // End of variables declaration//GEN-END:variables
 }

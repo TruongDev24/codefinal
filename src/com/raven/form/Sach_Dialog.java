@@ -334,7 +334,34 @@ public class Sach_Dialog extends javax.swing.JDialog {
         openFileChooser();
     }//GEN-LAST:event_lblHinhAnhMouseClicked
 
+    private boolean validateInput() {
+        // Kiểm tra các trường bắt buộc không được để trống
+        if (txtTenSach.getText().isEmpty() || txtSoTrang.getText().isEmpty() || txtGia.getText().isEmpty() || lblHinhAnh.getText().isEmpty() || txtMoTa.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin");
+            return false;
+        }
+
+        // Kiểm tra xem các combobox đã được chọn chưa
+        if (cbxNXB.getSelectedItem().toString().equals(" ") || cbxTG.getSelectedItem().toString().equals(" ") || cbxTL.getSelectedItem().toString().equals(" ")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn các mục từ danh sách");
+            return false;
+        }
+
+        // Kiểm tra xem một số trường có chứa ký tự không hợp lệ, chẳng hạn như giá tiền
+        String gia = txtGia.getText();
+        if (!gia.matches("\\d+(\\.\\d+)?")) {
+            JOptionPane.showMessageDialog(this, "Giá tiền không hợp lệ");
+            return false;
+        }
+
+        // Thêm các kiểm tra khác tùy thuộc vào yêu cầu cụ thể của bạn
+        return true;
+    }
+
     private void add() {
+        if (!validateInput()) {
+            return;
+        }
         String ma_sach = "";
         String ma = "";
         String ten = txtTenSach.getText();
@@ -368,6 +395,9 @@ public class Sach_Dialog extends javax.swing.JDialog {
     }
 
     private void update() {
+        if (!validateInput()) {
+            return;
+        }
         String ma_sach = MaSach.getText();
         String ma = "";
         String ten = txtTenSach.getText();
@@ -403,6 +433,7 @@ public class Sach_Dialog extends javax.swing.JDialog {
 
     public void detail(int index) {
         Sach s = list.get(index);
+        txtMa.setText(s.getId());
         MaSach.setText(s.getId_sach());
         txtTenSach.setText(s.getTenSach());
         txtSoTrang.setText(s.getSoTrang());
@@ -423,12 +454,12 @@ public class Sach_Dialog extends javax.swing.JDialog {
     }
 
     public void delete() {
-        String ma_sach = "";
-        String tthai = "Đã xóa";
-
+        String ma_sach = txtMa.getText();
+        String soluong = "";
+        System.out.println(ma_sach);
         Sach sh = new Sach();
         sh.setId(ma_sach);
-        sh.setTrangThai(tthai);
+        sh.setSoLuong(soluong);
         boolean addS = sv.delete(sh);
         if (addS) {
             JOptionPane.showMessageDialog(this, "Xóa thành công");

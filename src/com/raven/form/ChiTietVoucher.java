@@ -215,6 +215,24 @@ public class ChiTietVoucher extends javax.swing.JDialog {
     private void luuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_luuBtnActionPerformed
         // TODO add your handling code here:
         if (actionType == ActionType.ADD) {
+            // Lấy ngày giờ hiện tại
+            Date currentDate = new Date();
+
+            // Kiểm tra ngày giờ bắt đầu và kết thúc của sự kiện
+            Date startDate = ngaybd.getDate();
+            Date endDate = ngaykt.getDate();
+
+            // Nếu ngày giờ kết thúc nhỏ hơn hoặc bằng ngày giờ bắt đầu
+            if (endDate.compareTo(startDate) <= 0) {
+                JOptionPane.showMessageDialog(this, "Ngày kết thúc phải sau ngày bắt đầu");
+                return;
+            }
+
+            // Nếu ngày giờ bắt đầu nhỏ hơn hoặc bằng ngày giờ hiện tại
+            if (startDate.compareTo(currentDate) <= 0 || endDate.compareTo(currentDate) <= 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày giờ trong tương lai");
+                return;
+            }
             // Xử lý khi thêm mới
             if (!checkNull()) {
                 return;
@@ -242,6 +260,24 @@ public class ChiTietVoucher extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Thêm thất bại");
             }
         } else if (actionType == ActionType.EDIT) {
+            // Lấy ngày giờ hiện tại
+            Date currentDate = new Date();
+
+            // Kiểm tra ngày giờ bắt đầu và kết thúc của sự kiện
+            Date startDate = ngaybd.getDate();
+            Date endDate = ngaykt.getDate();
+
+            // Nếu ngày giờ kết thúc nhỏ hơn hoặc bằng ngày giờ bắt đầu
+            if (endDate.compareTo(startDate) <= 0) {
+                JOptionPane.showMessageDialog(this, "Ngày kết thúc phải sau ngày bắt đầu");
+                return;
+            }
+
+            // Nếu ngày giờ bắt đầu nhỏ hơn hoặc bằng ngày giờ hiện tại
+            if (startDate.compareTo(currentDate) <= 0 || endDate.compareTo(currentDate) <= 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày giờ trong tương lai");
+                return;
+            }
             // Xử lý khi sửa
             if (!checkNull()) {
                 return;

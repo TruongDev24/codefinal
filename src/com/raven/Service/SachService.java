@@ -25,7 +25,7 @@ public class SachService {
 
     public List<Sach> getAll() {
         String sql = "SELECT \n"
-                + "    S.id as id_sach,\n"
+                + "    S.id AS id_sach,\n"
                 + "    CT.id,\n"
                 + "    S.ten_sach,\n"
                 + "    S.so_trang,\n"
@@ -47,7 +47,9 @@ public class SachService {
                 + "INNER JOIN \n"
                 + "    TheLoai TL ON CT.id_theloai = TL.id\n"
                 + "INNER JOIN \n"
-                + "    TacGia TG ON CT.id_tacgia = TG.id;";
+                + "    TacGia TG ON CT.id_tacgia = TG.id\n"
+                + "WHERE\n"
+                + "    CT.trang_thai <> N'Đã xóa';";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
             List<Sach> vm = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
@@ -197,16 +199,29 @@ public class SachService {
 
     public boolean delete(Sach sach) {
         String sql = "DECLARE @id_sach_update INT = ?; -- ID sách cần cập nhật\n"
-                + "DECLARE @new_trang_thai NVARCHAR(50) = N'Đã xóa';\n"
+                + "\n"
+                + "DECLARE @new_so_luong INT = ?; -- Số lượng mới\n"
+                + "\n"
+                + "DECLARE @new_trang_thai NVARCHAR(50); -- Trạng thái mới\n"
+                + "\n"
+                + "IF @new_so_luong = -1\n"
+                + "BEGIN\n"
+                + "    SET @new_trang_thai = N'Đã xóa';\n"
+                + "END\n"
+                + "ELSE\n"
+                + "BEGIN\n"
+                + "    SET @new_trang_thai = (CASE WHEN @new_so_luong > 0 THEN N'Hiện' ELSE N'Ẩn' END);\n"
+                + "END\n"
                 + "\n"
                 + "UPDATE [dbo].[ChiTietSach]\n"
                 + "SET \n"
+                + "    [so_luong] = @new_so_luong,\n"
                 + "    [trang_thai] = @new_trang_thai\n"
                 + "WHERE\n"
                 + "    [id] = @id_sach_update;";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setObject(1, sach.getId());
-            ps.setObject(2, "Đã xóa");
+            ps.setObject(2, -1);
 
             ps.executeUpdate();
             return true;

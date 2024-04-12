@@ -19,6 +19,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -692,23 +693,30 @@ public class Form_BanHang extends javax.swing.JPanel {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {
 //GEN-FIRST:event_btnThanhToanActionPerformed
-        try {
+         try {
+             int idHD = Integer.parseInt(lblMaHoaDon.getText());
             if (!lblTongTien.getText().equals("0.0")) {
-                int idHD = Integer.parseInt(lblMaHoaDon.getText());
-                banHangService.updateOrder(idHD, 1, Double.parseDouble(lblTongTien.getText()), Integer.parseInt(txtVoucher.getText()));
+                banHangService.updateOrder(idHD, 1, Double.parseDouble(lblTongTien.getText()),txtVoucher.getText().equals("")?null:Integer.parseInt(txtVoucher.getText()));
                 DefaultTableModel model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
                 model.setRowCount(0);
                 lblTongTien.setText("0");
                 lblMaHoaDon.setText("Chua Co");
                 fillToTableSanPham();
                 fillToTableHoaDon();
+                fillToTableSanPham();
+                txtVoucher.setText("");
+                txtVoucher.setEnabled(true);
+                btnApDungVoucher.setEnabled(true);
+                btnHuyApDung.setEnabled(false);
+                banHangService.updateProductStatus();
                 JOptionPane.showMessageDialog(this, "Thanh toán thành công");
             } else {
-                JOptionPane.showMessageDialog(this, "Thanh toán thất bại");
+                JOptionPane.showMessageDialog(this, "Thanh toán thất bại do don hang bang 0");
             }
 
         } catch (Exception | Error e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            e.printStackTrace();
+//            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
@@ -721,6 +729,9 @@ public class Form_BanHang extends javax.swing.JPanel {
             fillToTableHoaDonChiTiet(idHoaDon);
         } catch (java.lang.NumberFormatException | java.lang.ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(this, "Chon Hoa Don");
+        }
+        catch (RuntimeException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnAddProductActionPerformed
 

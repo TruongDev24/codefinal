@@ -89,6 +89,8 @@ public class BanHangService {
                 if (rs.next()){
                     int soLuongCu = rs.getInt(1);
                     int soLuongMoi = soLuong - soLuongCu;
+                    if (soLuongMoi > 0) throw new RuntimeException("Số lượng không đủ");
+                    System.out.println(soLuongMoi);
                     String sql2 = "UPDATE ChiTietSach SET so_luong = so_luong - ? WHERE id = ?";
                     try (PreparedStatement ps2 = conn.prepareStatement(sql2)) {
                         ps2.setObject(1, soLuongMoi);
@@ -130,8 +132,17 @@ public class BanHangService {
     }
    public void updateQuantity(int idSanPham, int soLuong){
         String sql = "UPDATE ChiTietSach SET so_luong = so_luong - ? WHERE id = ?";
+        String sql1 = "SELECT so_luong FROM ChiTietSach WHERE id = ?";
         try ( Connection conn = DBConnect.getConnection()) {
             assert conn != null;
+            try (PreparedStatement ps = conn.prepareStatement(sql1)) {
+                ps.setObject(1, idSanPham);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()){
+                    int soLuongCu = rs.getInt(1);
+                    if (soLuongCu < soLuong) throw new RuntimeException("Số lượng không đủ");
+                }
+            }
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setObject(1, soLuong);
                 ps.setObject(2, idSanPham);
@@ -216,15 +227,42 @@ public class BanHangService {
             throw new RuntimeException(e);
         }
     }
-    public void updateOrder(int id, int thanhToan, double tongTien, int idVoucher){
+    public void updateOrder(int id, int thanhToan, double tongTien, Integer idVoucher){
         String sql = "UPDATE HoaDon SET thanh_toan = ?,tong_tien =? , id_voucher =? WHERE id = ?";
+        String sql1 = "UPDATE HoaDon SET thanh_toan = ?,tong_tien =? WHERE id = ?";
+       if (idVoucher == null) {
+           try (Connection conn = DBConnect.getConnection()) {
+               assert conn != null;
+               try (PreparedStatement ps = conn.prepareStatement(sql1)) {
+                   ps.setObject(1, thanhToan);
+                   ps.setObject(2, tongTien);
+                   ps.setObject(3, id);
+                   ps.executeUpdate();
+               }
+           } catch (SQLException e) {
+               throw new RuntimeException(e);
+           }
+       }
+         else {
+              try (Connection conn = DBConnect.getConnection()) {
+                assert conn != null;
+                try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                     ps.setObject(1, thanhToan);
+                     ps.setObject(2, tongTien);
+                     ps.setObject(3, idVoucher);
+                     ps.setObject(4, id);
+                     ps.executeUpdate();
+                }
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+         }
+    }
+    public void updateProductStatus(){
+        String sql = "UPDATE ChiTietSach SET trang_thai = 0 WHERE so_luong = 0";
         try ( Connection conn = DBConnect.getConnection()) {
             assert conn != null;
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setObject(1, thanhToan);
-                ps.setObject(2, tongTien);
-                ps.setObject(3, idVoucher);
-                ps.setObject(4, id);
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
