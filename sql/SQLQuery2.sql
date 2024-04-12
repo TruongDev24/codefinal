@@ -1,35 +1,4 @@
-﻿CREATE PROCEDURE UpdateVoucherStatus
-AS
-BEGIN
-    DECLARE @CurrentDate DATETIME
-    SET @CurrentDate = GETDATE()
-
-    -- Update trạng thái thành "Đang diễn ra" nếu đến ngày bắt đầu và chưa qua ngày kết thúc
-    UPDATE [dbo].[Voucher]
-    SET [trang_thai] = N'Đang diễn ra'
-    WHERE [ngay_batdau] <= @CurrentDate
-    AND [ngay_ketThuc] >= @CurrentDate
-    AND [trang_thai] = N'Chưa diễn ra';
-
-    -- Update trạng thái thành "Đã kết thúc" nếu đã qua ngày kết thúc
-    UPDATE [dbo].[Voucher]
-    SET [trang_thai] = N'Đã kết thúc'
-    WHERE [ngay_ketThuc] < @CurrentDate
-    AND [trang_thai] = N'Đang diễn ra';
-END
-
-CREATE PROCEDURE UpdateStatusWhenQuantity
-AS
-BEGIN
-    UPDATE [dbo].[ChiTietSach]
-    SET [trang_thai] = CASE 
-                            WHEN [so_luong] > 0 THEN N'Hiện'
-                            ELSE N'Ẩn'
-                        END;
-END;
-
-
--- Chèn dữ liệu vào bảng Sach
+﻿-- Chèn dữ liệu vào bảng Sach
 INSERT INTO [dbo].[Sach] ([so_trang], [ten_sach])
 VALUES (300, N'Tiếng Chim Hót Trong Bụi Mận Gai'),
        (250, N'Người Mẹ Tốt'),
@@ -312,16 +281,7 @@ VALUES
 -- Chèn dữ liệu vào bảng NhanVien
 INSERT INTO [dbo].[NhanVien] ([username], [password], [ten_nv], [hinh_anh], [email], [cccd], [ngay_dangki], [gioi_tinh], [sdt], [ngay_sinh], [vai_tro], [trang_thai])
 VALUES 
-    ('nhanvien2', 'nhanvien123', N'Nhân viên 2', '', 'nhanvien2@example.com', '123456780', GETDATE(), 1, '0987654322', '1992-02-02', N'Staff', N'Active'),
-    ('nhanvien3', 'nhanvien123', N'Nhân viên 3', '', 'nhanvien3@example.com', '123456781', GETDATE(), 0, '0987654323', '1993-03-03', N'Staff', N'Active'),
-    ('nhanvien4', 'nhanvien123', N'Nhân viên 4', '', 'nhanvien4@example.com', '123456782', GETDATE(), 1, '0987654324', '1994-04-04', N'Staff', N'Active'),
-    ('nhanvien5', 'nhanvien123', N'Nhân viên 5', '', 'nhanvien5@example.com', '123456783', GETDATE(), 0, '0987654325', '1995-05-05', N'Staff', N'Active'),
-    ('nhanvien6', 'nhanvien123', N'Nhân viên 6', '', 'nhanvien6@example.com', '123456784', GETDATE(), 1, '0987654326', '1996-06-06', N'Staff', N'Active'),
-    ('nhanvien7', 'nhanvien123', N'Nhân viên 7', '', 'nhanvien7@example.com', '123456785', GETDATE(), 0, '0987654327', '1997-07-07', N'Staff', N'Active'),
-    ('nhanvien8', 'nhanvien123', N'Nhân viên 8', '', 'nhanvien8@example.com', '123456786', GETDATE(), 1, '0987654328', '1998-08-08', N'Staff', N'Active'),
-    ('nhanvien9', 'nhanvien123', N'Nhân viên 9', '', 'nhanvien9@example.com', '123456787', GETDATE(), 0, '0987654329', '1999-09-09', N'Staff', N'Active'),
-    ('nhanvien10', 'nhanvien123', N'Nhân viên 10', '', 'nhanvien10@example.com', '123456788', GETDATE(), 1, '0987654330', '2000-10-10', N'Staff', N'Active'),
-    ('nhanvien11', 'nhanvien123', N'Nhân viên 11', '', 'nhanvien11@example.com', '123456789', GETDATE(), 0, '0987654331', '2001-11-11', N'Staff', N'Active');
+    ('nhanvien2', 'nhanvien123', N'Nhân viên 2', 'E:\DuAn\BookStoreTruong\src\com\raven\image\1.png', 'nhanvien2@example.com', '123456780', GETDATE(), 1, '0987654322', '1992-02-02', N'Staff', N'Active')
 
        
 -- Chèn dữ liệu vào bảng Voucher
