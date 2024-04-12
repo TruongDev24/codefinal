@@ -25,6 +25,7 @@ public class SachService {
 
     public List<Sach> getAll() {
         String sql = "SELECT \n"
+                + "    S.id as id_sach,\n"
                 + "    CT.id,\n"
                 + "    S.ten_sach,\n"
                 + "    S.so_trang,\n"
@@ -63,7 +64,8 @@ public class SachService {
                         rs.getString(9),
                         rs.getString(10),
                         rs.getString(11),
-                        rs.getString(12));
+                        rs.getString(12),
+                        rs.getString(13));
                 vm.add(vcm);
             }
             return vm;
@@ -120,8 +122,8 @@ public class SachService {
     }
 
     public boolean update(Sach sach) {
-        String sql = "DECLARE @id_sach_update INT = ?; -- ID sách cần cập nhật\n"
-                + "\n"
+        String sql = "DECLARE @id_sach INT = ?;\n"
+                + "DECLARE @id_sach_update INT = ?; -- ID sách cần cập nhật\n"
                 + "DECLARE @new_so_trang INT = ?;\n"
                 + "DECLARE @new_ten_sach NVARCHAR(200) = ?;\n"
                 + "DECLARE @new_gia_ban DECIMAL(10, 2) = ?;\n"
@@ -137,7 +139,7 @@ public class SachService {
                 + "    [so_trang] = @new_so_trang,\n"
                 + "    [ten_sach] = @new_ten_sach\n"
                 + "WHERE\n"
-                + "    [id] = @id_sach_update;\n"
+                + "    [id] = @id_sach;\n"
                 + "\n"
                 + "UPDATE [dbo].[ChiTietSach]\n"
                 + "SET \n"
@@ -149,18 +151,19 @@ public class SachService {
                 + "    [mota] = @new_mota,\n"
                 + "    [trang_thai] = @new_trang_thai\n"
                 + "WHERE\n"
-                + "    [id_sach] = @id_sach_update;";
+                + "    [id] = @id_sach_update;";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setObject(1, sach.getId());
-            ps.setObject(2, sach.getSoTrang());
-            ps.setObject(3, sach.getTenSach());
-            ps.setObject(4, sach.getGiaBan());
-            ps.setObject(5, Integer.valueOf(sach.getNxb()));
-            ps.setObject(6, Integer.valueOf(sach.getTacGia()));
-            ps.setObject(7, sach.getHinhAnh());
-            ps.setObject(8, Integer.valueOf(sach.getTheLoai()));
-            ps.setObject(9, sach.getMoTa());
-            ps.setObject(10, sach.getTrangThai());
+            ps.setObject(1, sach.getId_sach());
+            ps.setObject(2, sach.getId());
+            ps.setObject(3, sach.getSoTrang());
+            ps.setObject(4, sach.getTenSach());
+            ps.setObject(5, sach.getGiaBan());
+            ps.setObject(6, Integer.valueOf(sach.getNxb()));
+            ps.setObject(7, Integer.valueOf(sach.getTacGia()));
+            ps.setObject(8, sach.getHinhAnh());
+            ps.setObject(9, Integer.valueOf(sach.getTheLoai()));
+            ps.setObject(10, sach.getMoTa());
+            ps.setObject(11, sach.getTrangThai());
 
             ps.executeUpdate();
             return true;
@@ -179,7 +182,7 @@ public class SachService {
                 + "SET \n"
                 + "    [so_luong] = @new_so_luong\n"
                 + "WHERE\n"
-                + "    [id_sach] = @id_sach_update;";
+                + "    [id] = @id_sach_update;";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setObject(1, sach.getId());
             ps.setObject(2, sach.getSoLuong());
@@ -194,46 +197,16 @@ public class SachService {
 
     public boolean delete(Sach sach) {
         String sql = "DECLARE @id_sach_update INT = ?; -- ID sách cần cập nhật\n"
-                + "\n"
-                + "DECLARE @new_so_trang INT = ?;\n"
-                + "DECLARE @new_ten_sach NVARCHAR(200) = N?;\n"
-                + "DECLARE @new_gia_ban DECIMAL(10, 2) = ?;\n"
-                + "DECLARE @new_id_nxb INT = ?; -- ID của nhà xuất bản mới\n"
-                + "DECLARE @new_id_tacgia INT = ?; -- ID của tác giả mới\n"
-                + "DECLARE @new_hinh_anh VARCHAR(MAX) = ?;\n"
-                + "DECLARE @new_id_theloai INT = ?; -- ID của thể loại mới\n"
-                + "DECLARE @new_mota NVARCHAR(MAX) = ?;\n"
                 + "DECLARE @new_trang_thai NVARCHAR(50) = N'Đã xóa';\n"
-                + "\n"
-                + "UPDATE [dbo].[Sach]\n"
-                + "SET \n"
-                + "    [so_trang] = @new_so_trang,\n"
-                + "    [ten_sach] = @new_ten_sach\n"
-                + "WHERE\n"
-                + "    [id] = @id_sach_update;\n"
                 + "\n"
                 + "UPDATE [dbo].[ChiTietSach]\n"
                 + "SET \n"
-                + "    [gia_ban] = @new_gia_ban,\n"
-                + "    [id_nxb] = @new_id_nxb,\n"
-                + "    [id_tacgia] = @new_id_tacgia,\n"
-                + "    [hinh_anh] = @new_hinh_anh,\n"
-                + "    [id_theloai] = @new_id_theloai,\n"
-                + "    [mota] = @new_mota,\n"
                 + "    [trang_thai] = @new_trang_thai\n"
                 + "WHERE\n"
-                + "    [id_sach] = @id_sach_update;";
+                + "    [id] = @id_sach_update;";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setObject(1, sach.getId());
-            ps.setObject(2, sach.getSoTrang());
-            ps.setObject(3, sach.getTenSach());
-            ps.setObject(4, sach.getGiaBan());
-            ps.setObject(5, Integer.valueOf(sach.getNxb()));
-            ps.setObject(6, Integer.valueOf(sach.getTacGia()));
-            ps.setObject(7, sach.getHinhAnh());
-            ps.setObject(8, Integer.valueOf(sach.getTheLoai()));
-            ps.setObject(9, sach.getMoTa());
-            ps.setObject(10, "Đã xóa");
+            ps.setObject(2, "Đã xóa");
 
             ps.executeUpdate();
             return true;
@@ -305,6 +278,7 @@ public class SachService {
 
     public List<Sach> getAllByStatus(String status) {
         String sql = "select \n"
+                + "S.id,\n"
                 + "CT.id,\n"
                 + "S.ten_sach,\n"
                 + "S.so_trang,\n"
@@ -339,7 +313,8 @@ public class SachService {
                         rs.getString(9),
                         rs.getString(10),
                         rs.getString(11),
-                        rs.getString(12));
+                        rs.getString(12),
+                        rs.getString(13));
                 vm.add(vcm);
             }
             return vm;

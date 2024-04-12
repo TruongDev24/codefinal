@@ -98,6 +98,7 @@ public class Sach_Dialog extends javax.swing.JDialog {
 
         txtMa = new javax.swing.JTextField();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        MaSach = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -125,6 +126,8 @@ public class Sach_Dialog extends javax.swing.JDialog {
         txtNgayThem = new javax.swing.JTextField();
 
         txtMa.setText("jTextField1");
+
+        MaSach.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -332,6 +335,7 @@ public class Sach_Dialog extends javax.swing.JDialog {
     }//GEN-LAST:event_lblHinhAnhMouseClicked
 
     private void add() {
+        String ma_sach = "";
         String ma = "";
         String ten = txtTenSach.getText();
         String sotrang = txtSoTrang.getText();
@@ -353,7 +357,7 @@ public class Sach_Dialog extends javax.swing.JDialog {
             tthai = "Ẩn";
         }
 
-        Sach sh = new Sach(ma, ten, sotrang, gia, sl, ngaythem, nhaxb, tgia, tloai, hinhAnh, mta, tthai);
+        Sach sh = new Sach(ma_sach, ma, ten, sotrang, gia, sl, ngaythem, nhaxb, tgia, tloai, hinhAnh, mta, tthai);
         boolean addS = sv.add(sh);
         if (addS) {
             JOptionPane.showMessageDialog(this, "Thêm thành công");
@@ -364,6 +368,7 @@ public class Sach_Dialog extends javax.swing.JDialog {
     }
 
     private void update() {
+        String ma_sach = MaSach.getText();
         String ma = "";
         String ten = txtTenSach.getText();
         String sotrang = txtSoTrang.getText();
@@ -385,9 +390,10 @@ public class Sach_Dialog extends javax.swing.JDialog {
             tthai = "Ẩn";
         }
 
-        Sach sh = new Sach(ma, ten, sotrang, gia, sl, ngaythem, nhaxb, tgia, tloai, hinhAnh, mta, tthai);
+        Sach sh = new Sach(ma_sach, ma, ten, sotrang, gia, sl, ngaythem, nhaxb, tgia, tloai, hinhAnh, mta, tthai);
         boolean addS = sv.update(sh);
         if (addS) {
+            System.out.println(nhaxb);
             JOptionPane.showMessageDialog(this, "Sửa thành công");
             this.dispose();
         } else {
@@ -397,6 +403,7 @@ public class Sach_Dialog extends javax.swing.JDialog {
 
     public void detail(int index) {
         Sach s = list.get(index);
+        MaSach.setText(s.getId_sach());
         txtTenSach.setText(s.getTenSach());
         txtSoTrang.setText(s.getSoTrang());
         txtGia.setText(s.getGiaBan());
@@ -416,28 +423,12 @@ public class Sach_Dialog extends javax.swing.JDialog {
     }
 
     public void delete() {
-        String ma = "";
-        String ten = txtTenSach.getText();
-        String sotrang = txtSoTrang.getText();
-        String gia = txtGia.getText();
-        String sl = "";
-        String ngaythem = "";
-        String selectedNXB = (String) cbxNXB.getSelectedItem();
-        String nhaxb = String.valueOf(nxbMap.get(selectedNXB));
-        String selectedTG = (String) cbxTG.getSelectedItem();
-        String tgia = String.valueOf(nxbMap.get(selectedTG));
-        String selectedTL = (String) cbxTL.getSelectedItem();
-        String tloai = String.valueOf(nxbMap.get(selectedTL));
-        String hinhAnh = lblHinhAnh.getText();
-        String mta = txtMoTa.getText();
-        String tthai = "";
-        if (rdo1.isSelected()) {
-            tthai = "Hiện";
-        } else if (rdo2.isSelected()) {
-            tthai = "Ẩn";
-        }
+        String ma_sach = "";
+        String tthai = "Đã xóa";
 
-        Sach sh = new Sach(ma, ten, sotrang, gia, sl, ngaythem, nhaxb, tgia, tloai, hinhAnh, mta, tthai);
+        Sach sh = new Sach();
+        sh.setId(ma_sach);
+        sh.setTrangThai(tthai);
         boolean addS = sv.delete(sh);
         if (addS) {
             JOptionPane.showMessageDialog(this, "Xóa thành công");
@@ -535,6 +526,7 @@ public class Sach_Dialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField MaSach;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbxNXB;
     private javax.swing.JComboBox<String> cbxTG;

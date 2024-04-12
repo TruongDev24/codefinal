@@ -11,6 +11,7 @@ import java.util.Date;
  * @author LENOVO
  */
 public class Sach {
+    private String id_sach;
     private String id;
     private String tenSach;
     private String soTrang;
@@ -27,7 +28,8 @@ public class Sach {
     public Sach() {
     }
 
-    public Sach(String id, String tenSach, String soTrang, String giaBan, String soLuong, String ngayThem, String nxb, String tacGia, String theLoai, String hinhAnh, String moTa, String trangThai) {
+    public Sach(String id_sach, String id, String tenSach, String soTrang, String giaBan, String soLuong, String ngayThem, String nxb, String tacGia, String theLoai, String hinhAnh, String moTa, String trangThai) {
+        this.id_sach = id_sach;
         this.id = id;
         this.tenSach = tenSach;
         this.soTrang = soTrang;
@@ -40,6 +42,14 @@ public class Sach {
         this.hinhAnh = hinhAnh;
         this.moTa = moTa;
         this.trangThai = trangThai;
+    }
+
+    public String getId_sach() {
+        return id_sach;
+    }
+
+    public void setId_sach(String id_sach) {
+        this.id_sach = id_sach;
     }
 
     public String getId() {
@@ -138,6 +148,8 @@ public class Sach {
         this.trangThai = trangThai;
     }
 
+    
+    
     public Object[] toArray(){
         return new Object[]{id,tenSach,soTrang,giaBan,soLuong,ngayThem,nxb,tacGia,theLoai,hinhAnh,moTa,trangThai};
     }
