@@ -9,7 +9,7 @@ package com.raven.Model2;
  * @author LENOVO
  */
 public class TacGia {
-    private String id;
+    private int id;
     private String ten;
     private String moTa;
     private String trangThai;
@@ -17,18 +17,18 @@ public class TacGia {
     public TacGia() {
     }
 
-    public TacGia(String id, String ten, String moTa, String trangThai) {
+    public TacGia(int id, String ten, String moTa, String trangThai) {
         this.id = id;
         this.ten = ten;
         this.moTa = moTa;
         this.trangThai = trangThai;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -55,6 +55,6 @@ public class TacGia {
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
-    
+
     
 }

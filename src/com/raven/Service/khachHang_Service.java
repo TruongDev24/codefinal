@@ -90,7 +90,7 @@ public class khachHang_Service {
         return check > 0;
     }
 
-    public boolean delete(int Id) {
+    public boolean delete(String Id) {
         int check = 0;
         String sql = "delete from KhachHang where id=?";
         try ( PreparedStatement prs = con.prepareStatement(sql)) {

@@ -289,26 +289,22 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        int selectedIndex = table.getSelectedRow();
-        if (selectedIndex != -1) {
-            int idNhanVien = Integer.parseInt(table.getValueAt(selectedIndex, 0).toString());
-
-            int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa khách hàng này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                // Set trạng thái của nhân viên thành "Đã nghỉ"
-                boolean updateStatus = khService.updateStatus(idNhanVien, "Inactive");
-
-                if (updateStatus) {
-                    JOptionPane.showMessageDialog(this, "Xóa thành công. Khách hàng đã chuyển sang trạng thái 'Inactive'.");
-                    listKH = khService.getAll_KH();
-                    ShowData(listKH);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Xóa thất bại.");
-                }
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng cần xóa.");
+            return;
+        }
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa khách hàng này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            String idDelete = table.getValueAt(selectedRow, 0).toString();
+            boolean success = khService.delete(idDelete);
+            if (success) {
+                listKH = khService.getAll_KH();
+                ShowData(listKH);
+                JOptionPane.showMessageDialog(null, "Đã xóa khách hàng thành công.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Xóa khách hàng không thành công. Vui lòng thử lại.");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một nhân viên để xóa.");
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 

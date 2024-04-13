@@ -33,7 +33,7 @@ public class NXB_Dialog extends javax.swing.JDialog {
         this.actionType = actionType;
         this.setLocationRelativeTo(null);
         if (actionType == ActionType.EDIT) {
-            lblname.setText("Sửa nhà xuất bản");
+            lblname.setText("Sửa nhà nhà xuất bản");
         }
     }
 

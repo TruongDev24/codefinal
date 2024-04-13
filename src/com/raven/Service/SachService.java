@@ -238,7 +238,7 @@ public class SachService {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 TacGia vcm = new TacGia(
-                        rs.getString(1),
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4));
@@ -258,7 +258,7 @@ public class SachService {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 TheLoai vcm = new TheLoai(
-                        rs.getString(1),
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4));
